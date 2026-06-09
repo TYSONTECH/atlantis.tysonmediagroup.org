@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyson Media Group | Automotive Journal</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-black: #000000;
+            --text-light: #f5f5f7;
+            --text-muted: #8e8e93;
+            --font-editorial: 'Cormorant Garamond', Georgia, serif;
+            --font-accent: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-light);
+            font-family: var(--font-accent);
+            font-weight: 200;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Grain Texture Layer */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.03; pointer-events: none; z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Hazy Liminal Environment Glows */
+        .ambient-glow {
+            position: fixed; width: 65vw; height: 65vw; border-radius: 50%;
+            background: radial-gradient(circle, rgba(150, 160, 175, 0.09) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(90px); pointer-events: none; z-index: -1; animation: drift 30s infinite alternate ease-in-out;
+        }
+        .glow-1 { top: -25%; left: -15%; }
+        @keyframes drift { 0% { transform: translate(0, 0); } 100% { transform: translate(6%, 4%); } }
+
+        /* Navigation */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; padding: 2.5rem 4%; display: flex; justify-content: space-between; align-items: center; z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0)); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+        }
+        .nav-logo img { height: 28px; width: auto; display: block; opacity: 0.9; }
+        nav a { color: var(--text-light); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; margin-left: 3rem; opacity: 0.5; transition: opacity 0.4s; }
+        nav a:hover { opacity: 1; }
+
+        /* Hero Configuration */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 10%; text-align: center; }
+        
+        .hero-logo { 
+            max-width: 780px; /* Enhanced sizing footprint */
+            width: 85%; 
+            margin-bottom: 3.5rem; 
+            opacity: 0.95; 
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.02));
+        }
+        
+        .hero h1 { 
+            font-family: var(--font-editorial); 
+            font-size: calc(1.8rem + 1.4vw); 
+            font-weight: 300; 
+            font-style: italic; 
+            max-width: 850px; 
+            letter-spacing: -0.01em;
+            color: rgba(255,255,255,0.8); 
+        }
+
+        /* Core Section Grid layout */
+        section { padding: 9rem 10%; max-width: 1400px; margin: 0 auto; }
+        .section-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-muted); margin-bottom: 4rem; display: block; }
+
+        /* Magazine Grid Feed */
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 5rem 3.5rem; }
+        .review-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+        .thumbnail-box { width: 100%; aspect-ratio: 16/10; background: #070708; margin-bottom: 1.8rem; overflow: hidden; border: 1px solid rgba(255,255,255,0.01); transition: border-color 0.6s; }
+        .thumbnail-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: grayscale(35%) contrast(90%); transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.7s, filter 0.7s; }
+        
+        .review-card:hover .thumbnail-box img { transform: scale(1.015); opacity: 0.8; filter: grayscale(10%) contrast(100%); }
+        .review-card:hover .thumbnail-box { border-color: rgba(255,255,255,0.08); }
+        
+        .meta-data { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 0.8rem; }
+        .review-card h3 { font-family: var(--font-editorial); font-size: 1.9rem; font-weight: 400; margin-bottom: 0.6rem; letter-spacing: -0.01em; line-height: 1.25; }
+        .excerpt { color: var(--text-muted); font-size: 0.9rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* Contact Styling */
+        .contact-content h2 { font-family: var(--font-editorial); font-size: calc(2.2rem + 1.2vw); font-weight: 300; margin-bottom: 2.5rem; max-width: 800px; }
+        .contact-email { font-family: var(--font-editorial); font-size: calc(1.6rem + 1vw); color: var(--text-light); text-decoration: none; display: inline-block; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.15); transition: border-color 0.4s; }
+        .contact-email:hover { border-color: rgba(255,255,255,0.8); }
+
+        footer { padding: 5rem 10% 4rem 10%; border-top: 1px solid rgba(255,255,255,0.02); display: flex; justify-content: space-between; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
+        @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; } nav { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow glow-1"></div>
+
+    <header>
+        <div class="nav-logo">
+            <img src="https://i.ibb.co/FLzz859x/tysoniconofficialpng.png" alt="TMG Icon">
+        </div>
+        <nav>
+            <a href="#reviews">Reviews</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <img src="https://i.ibb.co/jkhwWs2t/tysonofficialpng.png" alt="Tyson Media Group" class="hero-logo">
+            <h1>Automotive design analyzed through a quiet, atmospheric lens.</h1>
+        </section>
+
+        <section id="reviews">
+            <span class="section-tag">Recent Road Tests</span>
+            <div class="reviews-grid">
+                
+                <a href="reviews/porsche-911.html" class="review-card">
+                    <div class="thumbnail-box">
+                        <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800&q=80" alt="Porsche 911">
+                    </div>
+                    <div class="meta-data">Road Test • Issue 04</div>
+                    <h3>Porsche 911 (964): Midnight Shadows</h3>
+                    <p class="excerpt">An exploration of classic air-cooled geometry set against the desolate backdrop of concrete rest stations at dusk.</p>
+                </a>
+
+                <a href="reviews/bmw-e9.html" class="review-card">
+                    <div class="thumbnail-box">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="BMW E9">
+                    </div>
+                    <div class="meta-data">Road Test • Issue 03</div>
+                    <h3>Chasing Fog in the BMW E9 CSL</h3>
+                    <p class="excerpt">Tracing the legendary pillarless silhouette through the morning haze of winding coastal highways.</p>
+                </a>
+
+            </div>
+        </section>
+
+        <section id="contact">
+            <span class="section-tag">Correspondence</span>
+            <div class="contact-content">
+                <h2>Step into the landscape. Let’s project something enduring together.</h2>
+                <a href="mailto:tyson26rs26@gmail.com" class="contact-email">tyson26rs26@gmail.com</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TYSON Media Group.</p>
+        <p>Stillness in Motion.</p>
+    </footer>
+
+</body>
+</html>
