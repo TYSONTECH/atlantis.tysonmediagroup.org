@@ -236,14 +236,12 @@
 </head>
 <body class="intro-active">
 
-    <!-- FILMED MOTION INTRO CANVAS OVERLAY -->
     <div id="preloader-canvas">
         <video autoplay muted playsinline id="intro-video">
             <source src="preload/asfdjkl;.mp4" type="video/mp4">
         </video>
     </div>
 
-    <!-- CINEMATIC LIGHTBOX SYSTEM COMPONENT -->
     <div id="videoLightbox" class="lightbox-overlay">
         <div class="lightbox-container">
             <div class="lightbox-video-frame">
@@ -259,7 +257,6 @@
         </div>
     </div>
 
-    <!-- MAIN PLATFORM NAVIGATION FRAME -->
     <header>
         <div class="nav-brand-container">
             <div class="nav-logo">
@@ -281,7 +278,6 @@
 
     <main style="padding-top: 4rem;">
         
-        <!-- FLAGSHIP HERO SCALE DISPLAY CANVAS -->
         <section class="hero-deck">
             <div class="hero-logo-container">
                 <img src="imagestuff/logostuff/mainweblogo.png" alt="TYSON Media Group">
@@ -290,18 +286,15 @@
             <div class="scroll-indicator">Scroll to Interface</div>
         </section>
 
-        <!-- WIDESCREEN FILM ARCHIVE HUB (STAR OF THE SHOW: TYSON AVIATION) -->
         <section id="broadcast" class="broadcast-hub">
             <div class="section-tag-line">
                 <span class="section-tag" style="color: #30d158;">★ Specialized Division Launch Priority</span>
                 <div class="section-line" style="background: rgba(48, 209, 88, 0.15);"></div>
             </div>
             
-            <!-- Main Featured Video Element - Hooked directly to the Aviation Launch -->
             <div class="video-canvas-wrapper" onclick="launchLightbox('XBhHj-1K8YU', 'TYSON Aviation | Official Channel Launch Announcement', 'Welcome to TYSON Aviation. The official programmatic expansion establishing flight deck documentation, mechanical aerospace design analysis, and airborne cinematic essays.')">
                 <div class="video-canvas-container">
                     <video autoplay muted loop playsinline>
-                        <!-- Points to your converted MP4 of the announcement video. Falls back to original loop if missing -->
                         <source src="preload/aviation_teaser.mp4" type="video/mp4">
                         <source src="preload/asfdjkl;.mp4" type="video/mp4">
                     </video>
@@ -313,7 +306,6 @@
             </div>
         </section>
 
-        <!-- INTERACTIVE STREAM STRIP CAROUSEL ENGINE -->
         <section id="journal" style="padding-bottom: 4rem;">
             <div class="section-tag-line">
                 <span class="section-tag">Network Spotlight Broadcasts</span>
@@ -322,8 +314,7 @@
             
             <div class="carousel-deck">
                 <div class="carousel-visual-pane" id="imageTrack">
-                    <!-- Dynamic YouTube Cover Images Populate Automatically via JS -->
-                </div>
+                    </div>
                 
                 <div class="carousel-content-overlay">
                     <div class="carousel-text-box">
@@ -344,7 +335,6 @@
             </div>
         </section>
 
-        <!-- SORTABLE INTEGRATION MATRIX -->
         <section style="padding-top: 2rem;">
             <div class="catalog-matrix-controls">
                 <button class="matrix-tab active" onclick="filterCategory('all', this)">All Feeds</button>
@@ -362,7 +352,6 @@
             <div id="noResults" class="no-results">No active video indexes match configuration matrix filters.</div>
         </section>
 
-        <!-- UMBRELLA DIVISION STATIONS SEPARATOR -->
         <section id="network">
             <div class="section-tag-line">
                 <span class="section-tag">Broadcast Network Divisions</span>
@@ -399,7 +388,6 @@
             </div>
         </section>
 
-        <!-- HUMAN ELEMENT: DIRECTORY COLLECTIVE MATRIX -->
         <section id="collective" style="padding-bottom: 14rem;">
             <div class="section-tag-line">
                 <span class="section-tag">The Network Collective</span>
@@ -408,7 +396,6 @@
             
             <div class="roster-grid">
                 
-                <!-- TYLER -->
                 <div class="roster-card">
                     <div class="roster-header">
                         <div class="roster-identity-stack">
@@ -423,7 +410,6 @@
                     <p class="roster-bio">The foundational design and direction force of TYSON Media Group. Manages primary channel operations alongside his creative sandbox channel, T-Custard-26.</p>
                 </div>
 
-                <!-- ASH -->
                 <div class="roster-card">
                     <div class="roster-header">
                         <div class="roster-identity-stack">
@@ -438,7 +424,6 @@
                     <p class="roster-bio">Oversees tactical operations and operational formatting. Delivers the essential structural stabilization and mature guidance required to organize the network's long-term timeline.</p>
                 </div>
 
-                <!-- BRAYDEN -->
                 <div class="roster-card">
                     <div class="roster-header">
                         <div class="roster-identity-stack">
@@ -450,7 +435,6 @@
                     <p class="roster-bio">Maintains aesthetic balance across production tracks. Specializes in anchoring core experimental engineering scripts to reality while optimizing system execution parameters.</p>
                 </div>
 
-                <!-- TRISTON -->
                 <div class="roster-card">
                     <div class="roster-header">
                         <div class="roster-identity-stack">
@@ -465,7 +449,6 @@
                     <p class="roster-bio">Commands spatial capture processes across platforms. Constructs high-density, immersive POV virtual reality arrays designed for spatial simulation tracks.</p>
                 </div>
 
-                <!-- ZANE -->
                 <div class="roster-card">
                     <div class="roster-header">
                         <div class="roster-identity-stack">
@@ -485,13 +468,11 @@
 
     </main>
 
-    <!-- SYSTEM FOOTER -->
     <footer>
         <p>&copy; 2026 TYSON Media Group.</p>
         <p class="footer-closing">Stillness in Motion.</p>
     </footer>
 
-    <!-- RUNTIME DATA & VIDEO INTERFACE LOGIC ENGINE -->
     <script>
         // Kinetic Film Intro Playback Lifecycle Control
         window.addEventListener('DOMContentLoaded', () => {
@@ -515,8 +496,18 @@
                 "ytId": "XBhHj-1K8YU", 
                 "tag": "aviation",
                 "channelName": "@tysonmediagroup-aviation",
-                "issue": "Real Life! • Launch Feature",
+                "issue": "Video Game • Launch Feature", // CHANGED TO VIDEO GAME TYPE
                 "excerpt": "Welcome to TYSON Aviation. The official programmatic expansion establishing flight deck documentation, mechanical aerospace design analysis, and airborne cinematic essays.",
+                "featured": true
+            },
+            {
+                "id": "tmg-subaru-manuals-scoop",
+                "title": "Three Pedals, One Mission: Subaru Confirms Three New Manual Models for Japan",
+                "ytId": "LMv3NhnDtoM", 
+                "tag": "flagship",
+                "channelName": "@TYSONMediaGroup",
+                "issue": "Real Life! • June, 2026", // NEW INJECTED SUBARU ARTICLE INDEX
+                "excerpt": "Subaru's newly formed Sports Vehicle Planning Office drops a massive bombshell: three brand-new manual transmission platforms are slate to launch by 2027.",
                 "featured": true
             },
             {
@@ -527,18 +518,17 @@
                 "channelName": "@TYSONMediaGroup",
                 "issue": "Video Game • Jun 3, 2026",
                 "excerpt": "Incoming architectural updates documenting expanded telemetry grids, customized sound packages, and structural gameplay additions inside Forza Motorsport.",
-                "featured": true
+                "featured": false
             },
             {
                 "id": "tmg-racing-trailer",
                 "title": "TYSON Racing",
                 "ytId": "VEmux2kX6NQ",
-                "image": "",
                 "tag": "flagship",
                 "channelName": "@TYSONMediaGroup",
                 "issue": "Video Game • May 31, 2026",
                 "excerpt": "The official promotional trailer asset documenting the upcoming deployment of TYSON Racing tracks.",
-                "featured": true
+                "featured": false
             },
             {
                 "id": "tmg-f150-beamng",
