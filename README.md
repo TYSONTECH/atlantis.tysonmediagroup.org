@@ -33,4 +33,5 @@ The architecture relies entirely on high-performance vanilla engineering—built
 ├── Logic Subsystem    : Native ECMAScript 6 Processing Engine
 └── Typography         : Cormorant Garamond (Editorial) & Montserrat (Geometric)
 ```
-<img src="imagestuff/untitiled.png" alt="TYSON Media Group Platoform Core" width="600px">
+<img width="2560" height="660" alt="Untitled(2)" src="https://github.com/user-attachments/assets/40f8fca6-a06c-42c5-81ad-574cb1223167" />
+
