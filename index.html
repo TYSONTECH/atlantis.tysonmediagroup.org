@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TYSON Media Group | Automotive Journal</title>
+    <title>Tyson Media Group | Automotive Journal</title>
     
+    <!-- Premium Editorial Typography Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
@@ -20,6 +21,39 @@
             --font-accent: 'Montserrat', sans-serif;
         }
 
+        /* ----------------------------------------------------------------
+           CINEMATIC PRELOADER STYLES
+        ------------------------------------------------------------------- */
+        #preloader-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-black);
+            z-index: 99999; /* Higher than everything else */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            opacity: 1;
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1); /* Perfect 1-second fade */
+        }
+
+        #preloader-canvas video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video frames the display like a movie crop */
+        }
+
+        /* Stop scrolling completely while the video intro is executing */
+        body.intro-active {
+            overflow: hidden;
+        }
+
+        /* ----------------------------------------------------------------
+           MAIN SITE FRAMEWORK STYLES
+        ------------------------------------------------------------------- */
         body {
             background-color: var(--bg-black);
             color: var(--text-light);
@@ -57,7 +91,7 @@
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 10%; text-align: center; }
         
         .hero-logo { 
-            max-width: 780px; /* Enhanced sizing footprint */
+            max-width: 780px; 
             width: 85%; 
             margin-bottom: 3.5rem; 
             opacity: 0.95; 
@@ -100,7 +134,15 @@
         @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; } nav { display: none; } }
     </style>
 </head>
-<body>
+<body class="intro-active"> <!-- Locks background actions until initialization finishes -->
+
+    <!-- PRELOADER FRAMEWORK -->
+    <div id="preloader-canvas">
+        <!-- Plays muted, inline, and automatically to satisfy mobile safety policies -->
+        <video autoplay muted playsinline id="intro-video">
+            <source src="preload/asfdjkl;.mp4" type="video/mp4">
+        </video>
+    </div>
 
     <div class="ambient-glow glow-1"></div>
 
@@ -124,6 +166,7 @@
             <span class="section-tag">Recent Road Tests</span>
             <div class="reviews-grid">
                 
+                <!-- ARTICLE PREVIEW 1 -->
                 <a href="reviews/porsche-911.html" class="review-card">
                     <div class="thumbnail-box">
                         <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800&q=80" alt="Porsche 911">
@@ -133,6 +176,7 @@
                     <p class="excerpt">An exploration of classic air-cooled geometry set against the desolate backdrop of concrete rest stations at dusk.</p>
                 </a>
 
+                <!-- ARTICLE PREVIEW 2 -->
                 <a href="reviews/bmw-e9.html" class="review-card">
                     <div class="thumbnail-box">
                         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="BMW E9">
@@ -155,9 +199,31 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 TYSON Media Group.</p>
+        <p>&copy; 2026 Tyson Media Group.</p>
         <p>Stillness in Motion.</p>
     </footer>
+
+    <!-- PRELOADER ENGINE CONTROLLER -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('preloader-canvas');
+            
+            // 1. Force state for exactly 5000ms (5 seconds)
+            setTimeout(() => {
+                // 2. Start fading out across the 6th second
+                canvas.style.opacity = '0';
+                
+                // Allow page scrolling slightly early as opacity drops away
+                document.body.classList.remove('intro-active');
+                
+                // 3. At exactly 6000ms (end of 6th second), burn element from DOM tree
+                setTimeout(() => {
+                    canvas.remove();
+                }, 1000); 
+
+            }, 5000);
+        });
+    </script>
 
 </body>
 </html>
