@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,120 +15,162 @@
         :root {
             --bg-black: #000000;
             --text-light: #f5f5f7;
-            --text-muted: #8e8e93;
+            --text-muted: #7e7e86;
+            --border-color: rgba(255, 255, 255, 0.04);
             --font-editorial: 'Cormorant Garamond', Georgia, serif;
             --font-accent: 'Montserrat', sans-serif;
+            --transition-smooth: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         body {
             background-color: var(--bg-black); color: var(--text-light);
-            font-family: var(--font-accent); font-weight: 200; line-height: 1.7; overflow-x: hidden;
+            font-family: var(--font-accent); font-weight: 200; line-height: 1.6; overflow-x: hidden;
         }
         body.intro-active { overflow: hidden; height: 100vh; }
 
-        /* Cinematic Film Intro Canvas Overlay */
+        /* Cinematic Motion Frame Preloader */
         #preloader-canvas {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: var(--bg-black); z-index: 99999;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
-            opacity: 1; transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 1; transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
         #preloader-canvas video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Structural Grain Texture */
+        /* Fine Noise Overlay Layer */
         body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.02; pointer-events: none; z-index: 9999;
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.025; pointer-events: none; z-index: 9999;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Fixed Navigation Framework */
+        /* Fixed Header Navigation */
         header {
-            position: fixed; top: 0; left: 0; width: 100%; padding: 2.2rem 4%; display: flex; justify-content: space-between; align-items: center; z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0)); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(255,255,255,0.02);
+            position: fixed; top: 0; left: 0; width: 100%; padding: 2.5rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
         }
-        .nav-logo img { height: 15px; width: auto; display: block; opacity: 0.85; }
+        .nav-logo img { height: 13px; width: auto; display: block; opacity: 0.9; base-letter-spacing: 0.05em; }
         
-        .nav-right-cluster { display: flex; align-items: center; gap: 3rem; }
-        nav a { color: var(--text-light); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.5; transition: opacity 0.4s; }
+        .nav-right-cluster { display: flex; align-items: center; gap: 4rem; }
+        nav { display: flex; gap: 3rem; }
+        nav a { color: var(--text-light); text-decoration: none; font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.4; transition: opacity 0.4s; }
         nav a:hover { opacity: 1; }
 
         .search-container { position: relative; display: flex; align-items: center; }
         .search-input {
-            background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-light); font-family: var(--font-accent); font-size: 0.72rem; font-weight: 300;
-            padding: 0.4rem 0.5rem 0.4rem 0; width: 140px; letter-spacing: 0.1em; transition: width 0.4s, border-color 0.4s;
+            background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-light); font-family: var(--font-accent); font-size: 0.7rem; font-weight: 300;
+            padding: 0.3rem 0.5rem 0.3rem 0; width: 130px; letter-spacing: 0.15em; transition: var(--transition-smooth);
         }
-        .search-input:focus { outline: none; width: 220px; border-color: rgba(255,255,255,0.5); }
-        .search-input::placeholder { color: rgba(255,255,255,0.25); text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.2em; }
+        .search-input:focus { outline: none; width: 220px; border-color: rgba(255,255,255,0.4); }
+        .search-input::placeholder { color: rgba(255,255,255,0.2); text-transform: uppercase; font-size: 0.6rem; letter-spacing: 0.25em; }
 
-        /* Section Layout Presets */
-        section { padding: 9rem 8%; max-width: 1600px; margin: 0 auto; }
-        .section-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.35em; color: var(--text-muted); display: block; margin-bottom: 3.5rem; }
+        /* Structural Layout Sections */
+        section { padding: 10rem 5%; max-width: 1700px; margin: 0 auto; }
+        .section-tag { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--text-muted); display: block; margin-bottom: 4rem; }
 
-        /* Hero Deck: Upgraded Logo Scale Layout */
-        .hero-deck { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 6%; position: relative; }
+        /* Massive Hero Deck Branding */
+        .hero-deck { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 4%; position: relative; }
         .hero-logo-container {
-            max-width: 1100px; /* Enhanced maximum visibility scaling profile */
-            width: 92%;
-            margin-bottom: 4.5rem;
-            opacity: 0.95;
-            filter: drop-shadow(0 0 50px rgba(255,255,255,0.02));
+            max-width: 1300px;
+            width: 95%;
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealBrand 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
         }
         .hero-logo-container img { width: 100%; height: auto; display: block; }
-        .hero-deck h1 { font-family: var(--font-editorial); font-size: calc(1.6rem + 1.2vw); font-weight: 300; font-style: italic; max-width: 850px; color: rgba(255,255,255,0.75); letter-spacing: -0.01em; }
+        .hero-deck h1 { 
+            font-family: var(--font-editorial); font-size: calc(1.5rem + 1.5vw); font-weight: 300; font-style: italic; 
+            max-width: 950px; color: rgba(255,255,255,0.7); letter-spacing: -0.01em; line-height: 1.3;
+            opacity: 0; transform: translateY(15px);
+            animation: revealBrand 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+        }
 
-        /* Media Division: Film Broadcast Component */
-        .broadcast-hub { background: #040405; border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03); max-width: 100%; padding: 9rem 8%; }
-        .video-canvas-container { width: 100%; aspect-ratio: 21/9; background: #000; position: relative; border: 1px solid rgba(255,255,255,0.02); overflow: hidden; }
-        .video-canvas-container iframe, .video-canvas-container video { width: 100%; height: 100%; object-fit: cover; border: none; opacity: 0.6; }
+        /* Broadcast Frame Element */
+        .broadcast-hub { max-width: 100%; padding: 6rem 5% 10rem 5%; }
+        .video-canvas-container { width: 100%; aspect-ratio: 21/9; background: #050506; position: relative; border: 1px solid var(--border-color); overflow: hidden; }
+        .video-canvas-container video { width: 100%; height: 100%; object-fit: cover; opacity: 0.45; filter: contrast(105%) grayscale(15%); }
 
-        /* Dynamic Carousel Section Grid */
-        .carousel-deck { display: grid; grid-template-columns: 1.2fr 1.8fr; border: 1px solid rgba(255,255,255,0.03); background: #050505; position: relative; padding: 0; margin-bottom: 4rem; }
-        .carousel-meta-pane { padding: 5rem 10%; display: flex; flex-direction: column; justify-content: center; position: relative; border-right: 1px solid rgba(255,255,255,0.03); }
-        .carousel-title { font-family: var(--font-editorial); font-size: calc(1.8rem + 1vw); font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem; }
-        .carousel-excerpt { color: var(--text-muted); font-size: 0.88rem; font-weight: 300; margin-bottom: 3rem; }
-        .carousel-link { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-light); text-decoration: none; }
+        /* Cinema Strip Slider Subsystem */
+        .carousel-deck { position: relative; width: 100%; aspect-ratio: 21/9; border: 1px solid var(--border-color); overflow: hidden; background: #030304; }
+        .carousel-visual-pane { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .carousel-img-item { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; opacity:0; scale: 1.03; transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), scale 1.5s cubic-bezier(0.25, 1, 0.5, 1); filter: grayscale(20%) brightness(40%); }
+        .carousel-img-item.active { opacity: 0.6; scale: 1; }
+
+        .carousel-content-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 4rem; z-index: 2;
+            display: flex; justify-content: space-between; align-items: flex-end;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+        }
+        .carousel-text-box { max-width: 650px; }
+        .carousel-title { font-family: var(--font-editorial); font-size: calc(1.8rem + 1.2vw); font-weight: 300; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.01em; }
+        .carousel-excerpt { color: rgba(255,255,255,0.5); font-size: 0.9rem; font-weight: 300; max-width: 500px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         
-        .carousel-controls { position: absolute; bottom: 3rem; left: 10%; display: flex; gap: 1.5rem; align-items: center; }
-        .ctrl-btn { background: none; border: none; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; }
-        .carousel-counter { font-size: 0.72rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.2); }
+        .carousel-nav-interface { display: flex; flex-direction: column; align-items: flex-end; gap: 1.5rem; }
+        .carousel-link { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-light); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 0.2rem; transition: border-color 0.4s; }
+        .carousel-link:hover { border-color: var(--text-light); }
+        
+        .carousel-controls { display: flex; align-items: center; gap: 2rem; }
+        .ctrl-btn { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 0.9rem; cursor: pointer; padding: 0.5rem; transition: color 0.3s; }
+        .ctrl-btn:hover { color: var(--text-light); }
+        .carousel-counter { font-size: 0.7rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.2); font-weight: 400; }
 
-        .carousel-visual-pane { position: relative; width: 100%; min-height: 450px; overflow: hidden; }
-        .carousel-img-item { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; opacity:0; transition: opacity 0.8s ease; }
-        .carousel-img-item.active { opacity: 0.45; }
+        /* Archival Data Grid Layout */
+        .catalog-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 6rem 3.5rem; }
+        
+        .item-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; opacity: 0; transform: translateY(15px); animation: itemReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .img-wrapper { width: 100%; aspect-ratio: 16/10; background: #060607; margin-bottom: 1.8rem; overflow: hidden; border: 1px solid var(--border-color); }
+        .item-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: grayscale(35%); transition: var(--transition-smooth); }
+        .item-card:hover img { transform: scale(1.015); opacity: 0.8; filter: grayscale(5%); }
+        
+        .card-meta { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-muted); margin-bottom: 0.8rem; }
+        .card-title { font-family: var(--font-editorial); font-size: 1.8rem; font-weight: 400; line-height: 1.25; margin-bottom: 0.6rem; letter-spacing: -0.005em; }
+        .card-excerpt { color: var(--text-muted); font-size: 0.88rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6; }
+        .no-results { display: none; text-align: center; padding: 8rem 0; font-family: var(--font-editorial); font-size: 1.8rem; color: var(--text-muted); font-style: italic; }
 
-        /* Global Archive Database Grid Architecture */
-        .catalog-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 1rem; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 5rem 3rem; }
-        .item-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-        .img-wrapper { width: 100%; aspect-ratio: 16/10; background: #09090a; margin-bottom: 1.5rem; overflow: hidden; border: 1px solid rgba(255,255,255,0.01); }
-        .item-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.45; filter: grayscale(20%); transition: transform 0.6s, opacity 0.6s; }
-        .item-card:hover img { transform: scale(1.02); opacity: 0.75; }
-        .card-title { font-family: var(--font-editorial); font-size: 1.6rem; font-weight: 400; margin-bottom: 0.5rem; }
-        .card-excerpt { color: var(--text-muted); font-size: 0.85rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .no-results { display: none; text-align: center; padding: 5rem 0; font-family: var(--font-editorial); font-size: 1.5rem; color: var(--text-muted); font-style: italic; }
+        /* Network Division Channels Grid */
+        .matrix-deck { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; border-top: 1px solid var(--border-color); padding-top: 4rem; }
+        .matrix-cell { border: 1px solid var(--border-color); background: rgba(255,255,255,0.002); padding: 4rem 3rem; text-decoration: none; color: inherit; transition: var(--transition-smooth); display: flex; flex-direction: column; justify-content: space-between; min-height: 320px; }
+        .matrix-cell:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.01); }
+        .matrix-cell h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.25em; margin-bottom: 1.2rem; color: var(--text-light); font-weight: 400; }
+        .matrix-cell p { font-size: 0.88rem; color: var(--text-muted); font-weight: 300; line-height: 1.65; margin-bottom: auto; }
+        .matrix-status { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-light); margin-top: 2rem; display: flex; align-items: center; gap: 0.5rem; opacity: 0.6; }
+        .matrix-status span { width: 5px; height: 5px; background: #fff; border-radius: 50%; display: inline-block; }
+        .matrix-status.pulse span { background: #555; animation: microPulse 2s infinite ease-in-out; }
 
-        /* corporate Matrix Infrastructure Links */
-        .matrix-deck { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 6rem; }
-        .matrix-cell { border: 1px solid rgba(255,255,255,0.02); background: rgba(255,255,255,0.01); padding: 3rem 2rem; text-decoration: none; color: inherit; transition: border-color 0.4s; }
-        .matrix-cell:hover { border-color: rgba(255,255,255,0.1); }
-        .matrix-cell h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem; color: var(--text-light); }
-        .matrix-cell p { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; }
+        /* The Collective / Team Directory Architecture */
+        .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 4rem 2.5rem; border-top: 1px solid var(--border-color); padding-top: 4rem; }
+        .roster-card { display: flex; flex-direction: column; justify-content: space-between; border-left: 1px solid rgba(255,255,255,0.03); padding-left: 1.5rem; min-height: 200px; }
+        .roster-header { margin-bottom: 1rem; }
+        .roster-name { font-family: var(--font-editorial); font-size: 1.6rem; font-weight: 400; color: var(--text-light); letter-spacing: -0.01em; }
+        .roster-pronoun { font-size: 0.65rem; font-weight: 300; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-left: 0.5rem; font-family: var(--font-accent); }
+        .roster-role { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-top: 0.2rem; display: block; }
+        .roster-bio { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; margin-bottom: 1.5rem; }
+        .roster-link { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-light); text-decoration: none; opacity: 0.4; transition: opacity 0.3s; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.15rem; width: max-content; }
+        .roster-link:hover { opacity: 1; }
 
-        footer { padding: 6rem 8% 4rem 8%; border-top: 1px solid rgba(255,255,255,0.02); display: flex; justify-content: space-between; font-size: 0.72rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+        footer { padding: 6rem 5% 5rem 5%; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; }
 
-        @media (max-width: 968px) { 
-            .carousel-deck { grid-template-columns: 1fr; } 
-            .matrix-deck { grid-template-columns: 1fr; }
-            .nav-right-cluster { gap: 1.5rem; }
+        /* System Animations */
+        @keyframes revealBrand { to { opacity: 1; transform: translateY(0); } }
+        @keyframes itemReveal { to { opacity: 1; transform: translateY(0); } }
+        @keyframes microPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        
+        @media (max-width: 1024px) { 
+            .carousel-deck { aspect-ratio: 16/9; } 
+            .carousel-content-overlay { padding: 2rem; flex-direction: column; align-items: flex-start; gap: 2rem; }
+            .carousel-nav-interface { align-items: flex-start; }
+            .matrix-deck { grid-template-columns: 1fr; gap: 1.5rem; }
+            .nav-right-cluster { gap: 2rem; }
             nav { display: none; }
         }
     </style>
 </head>
 <body class="intro-active">
 
-    <!-- FILMED MOTION INTRO CANVAS LAYER -->
+    <!-- FILMED MOTION INTRO CANVAS OVERLAY -->
     <div id="preloader-canvas">
         <video autoplay muted playsinline id="intro-video">
             <source src="preload/asfdjkl;.mp4" type="video/mp4">
@@ -142,8 +184,9 @@
         <div class="nav-right-cluster">
             <nav>
                 <a href="#broadcast">Broadcast</a>
-                <a href="#catalog">Publications</a>
-                <a href="#divisions">Divisions</a>
+                <a href="#catalog">Journal</a>
+                <a href="#network">Network</a>
+                <a href="#collective">Collective</a>
             </nav>
             <div class="search-container">
                 <input type="text" id="journalSearch" class="search-input" placeholder="Search Index...">
@@ -151,76 +194,145 @@
         </div>
     </header>
 
-    <main>
+    <main style="padding-top: 6rem;">
         
-        <!-- FLAGSHIP HERO DECK: LOGO AT MASSIVE VISUAL WEIGHT SCALE -->
+        <!-- EXPANDED HIGH-STRIKE HERO BRAND CANVAS -->
         <section class="hero-deck">
             <div class="hero-logo-container">
                 <img src="imagestuff/logostuff/mainweblogo.png" alt="TYSON Media Group">
             </div>
-            <h1>A multidisciplinary holding firm focusing on automotive analysis, cinema production, and historical preservation.</h1>
+            <h1>A multidisciplinary media group specializing in cinematic automotive journalism, atmospheric soundscapes, and aviation design documentation.</h1>
         </section>
 
-        <!-- CINEMA STREAMING DISTRIBUTION HUB -->
+        <!-- WIDESCREEN CINEMATIC BROADCAST ELEMENT -->
         <section id="broadcast" class="broadcast-hub">
-            <span class="section-tag">Featured Broadcast / Film Portfolio</span>
+            <span class="section-tag">Featured Broadcast</span>
             <div class="video-canvas-container">
-                <!-- Swap with your absolute Vimeo / YouTube / Self-Hosted stream deployment path safely -->
                 <video autoplay muted loop playsinline>
                     <source src="preload/asfdjkl;.mp4" type="video/mp4">
                 </video>
             </div>
         </section>
 
-        <!-- DYNAMIC CAROUSEL SLIDER ENGINE -->
+        <!-- AUTOMATED FULL-BLEED INTERACTIVE STRIP CAROUSEL -->
         <section id="catalog" style="padding-bottom: 0;">
-            <span class="section-tag">Latest Editorial Releases</span>
+            <span class="section-tag">Latest Reviews & Analysis</span>
+            
             <div class="carousel-deck">
-                <div class="carousel-meta-pane">
-                    <div id="carouselMeta" style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 1rem;"></div>
-                    <h2 id="carouselTitle" class="carousel-title"></h2>
-                    <p id="carouselExcerpt" class="carousel-excerpt"></p>
-                    <a href="#" id="carouselLink" class="carousel-link">Access Asset →</a>
-                    
-                    <div class="carousel-controls">
-                        <button class="ctrl-btn" id="prevBtn">←</button>
-                        <span class="carousel-counter" id="carouselCounter">01 / 01</span>
-                        <button class="ctrl-btn" id="nextBtn">→</button>
-                    </div>
+                <div class="carousel-visual-pane" id="imageTrack">
+                    <!-- Dynamic Images Injection Array -->
                 </div>
-                <div class="carousel-visual-pane">
-                    <div id="imageTrack" style="width: 100%; height: 100%;"></div>
+                
+                <div class="carousel-content-overlay">
+                    <div class="carousel-text-box">
+                        <div id="carouselMeta" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-muted); margin-bottom: 0.8rem;"></div>
+                        <h2 id="carouselTitle" class="carousel-title"></h2>
+                        <p id="carouselExcerpt" class="carousel-excerpt"></p>
+                    </div>
+                    
+                    <div class="carousel-nav-interface">
+                        <a href="#" id="carouselLink" class="carousel-link">Access Asset →</a>
+                        <div class="carousel-controls">
+                            <button class="ctrl-btn" id="prevBtn">←</button>
+                            <span class="carousel-counter" id="carouselCounter">01 / 01</span>
+                            <button class="ctrl-btn" id="nextBtn">→</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- EXPANDED SEARCHABLE SYSTEM REGISTRY -->
-        <section style="padding-top: 4rem;">
+        <!-- DATA REGISTRY DIRECTORY FEED WITH FILTER MATCHING -->
+        <section style="padding-top: 6rem;">
             <div class="catalog-header">
-                <h3 style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-muted);">Media Group Index</h3>
-                <span id="resultsCount" style="font-size: 0.72rem; text-transform: uppercase; color: rgba(255,255,255,0.2);">0 components</span>
+                <h3 style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-muted);">The Archive Index</h3>
+                <span id="resultsCount" style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.15);">0 entries</span>
             </div>
             
             <div id="gridContainer" class="grid-container"></div>
-            <div id="noResults" class="no-results">No records found matching query criteria.</div>
+            <div id="noResults" class="no-results">No records match your tracking query.</div>
         </section>
 
-        <!-- DIVISIONAL MULTIPLEX PLATFORM MATRIX -->
-        <section id="divisions">
-            <span class="section-tag">Ecosystem Matrix</span>
+        <!-- THE 3 CORE NETWORK CHANNELS DECK -->
+        <section id="network">
+            <span class="section-tag">Broadcast Network Divisions</span>
             <div class="matrix-deck">
-                <a href="#" class="matrix-cell">
-                    <h4>TYSON Labs</h4>
-                    <p>Engineering experimental web environments, custom asset deployment pipelines, and premium spatial user experiences.</p>
+                <a href="https://www.youtube.com/@TYSONMediaGroup" target="_blank" class="matrix-cell">
+                    <div>
+                        <h4>TYSON Media Group</h4>
+                        <p>The primary publication engine. In-depth cinematic car reviews, design evaluation, and historical mechanical storytelling.</p>
+                    </div>
+                    <div class="matrix-status"><span></span>Flagship Station</div>
                 </a>
-                <a href="#" class="matrix-cell">
-                    <h4>Cinema Collective</h4>
-                    <p>Independent production wing capturing historical transportation design via modern ultra-wide cinematic formats.</p>
+                
+                <a href="https://www.youtube.com/@tysonatlantis" target="_blank" class="matrix-cell">
+                    <div>
+                        <h4>TYSON Atlantis</h4>
+                        <p>An atmospheric sonic ecosystem specializing in carefully curated sped up, slowed, and pitched audio alterations.</p>
+                    </div>
+                    <div class="matrix-status"><span></span>Online Archive</div>
                 </a>
-                <a href="#" class="matrix-cell">
-                    <h4>Print & Journal</h4>
-                    <p>Our archival print publication division dealing with physical distribution curves and quarterly hardbound journals.</p>
+                
+                <a href="https://www.youtube.com/@tysonmediagroup-aviation" target="_blank" class="matrix-cell">
+                    <div>
+                        <h4>TYSON Aviation</h4>
+                        <p>Our upcoming airborne vertical. Dedicated completely to capturing flight design, aerospace mechanics, and skyward exploration.</p>
+                    </div>
+                    <div class="matrix-status pulse"><span></span>Launching Soon</div>
                 </a>
+            </div>
+        </section>
+
+        <!-- THE COLLECTIVE ROSTER ARCHITECTURE -->
+        <section id="collective">
+            <span class="section-tag">The Network Collective</span>
+            <div class="roster-grid">
+                
+                <div class="roster-card">
+                    <div class="roster-header">
+                        <span class="roster-name">Tyler<span class="roster-pronoun">He/Him</span></span>
+                        <span class="roster-role">Founder & Director</span>
+                    </div>
+                    <p class="roster-bio">The core architectural engine behind TYSON Media Group's design ethos and ongoing cinematic outputs.</p>
+                    <a href="https://www.youtube.com/@T-Custard-26" target="_blank" class="roster-link">Passion Project →</a>
+                </div>
+
+                <div class="roster-card">
+                    <div class="roster-header">
+                        <span class="roster-name">Ash<span class="roster-pronoun">They/Them</span></span>
+                        <span class="roster-role">Co-Director</span>
+                    </div>
+                    <p class="roster-bio">Guiding operations, formatting editorial balance, and providing the crucial maturity needed to anchor the vision.</p>
+                    <a href="https://www.youtube.com/@THE-BlurrySyrup" target="_blank" class="roster-link">Personal Station →</a>
+                </div>
+
+                <div class="roster-card">
+                    <div class="roster-header">
+                        <span class="roster-name">Brayden<span class="roster-pronoun">He/Him</span></span>
+                        <span class="roster-role">Creative Director</span>
+                    </div>
+                    <p class="roster-bio">Constructing visual balance across releases while tracking design concepts to keep the broader team tied to reality.</p>
+                    <span class="roster-link" style="border:none; opacity:0.25;">Internal Grid Only</span>
+                </div>
+
+                <div class="roster-card">
+                    <div class="roster-header">
+                        <span class="roster-name">Triston<span class="roster-pronoun">He/Him</span></span>
+                        <span class="roster-role">VR Content Lead</span>
+                    </div>
+                    <p class="roster-bio">Pioneering our high-fidelity immersive perspective streams, building intense first-person VR video layers.</p>
+                    <a href="https://www.youtube.com/@bubbavrgt1" target="_blank" class="roster-link">VR Feed →</a>
+                </div>
+
+                <div class="roster-card">
+                    <div class="roster-header">
+                        <span class="roster-name">Zane<span class="roster-pronoun">He/Him</span></span>
+                        <span class="roster-role">Aviation Content Lead</span>
+                    </div>
+                    <p class="roster-bio">Commanding our upcoming airborne logistics division and spearheading the flight operations catalog.</p>
+                    <a href="https://www.youtube.com/@AwesomeZ05/featured" target="_blank" class="roster-link">Aero Hub →</a>
+                </div>
+
             </div>
         </section>
 
@@ -228,21 +340,22 @@
 
     <footer>
         <p>&copy; 2026 TYSON Media Group.</p>
-        <p>Architects of Stillness.</p>
+        <p>Stillness in Motion.</p>
     </footer>
 
+    <!-- ENGINE LOGIC INJECTION -->
     <script>
-        // Preloader System
+        // Kinetic Film Intro Execution Control
         window.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('preloader-canvas');
             setTimeout(() => {
                 canvas.style.opacity = '0';
                 document.body.classList.remove('intro-active');
-                setTimeout(() => { canvas.remove(); }, 1200); 
-            }, 5000); // Set to length of your dynamic MP4 file
+                setTimeout(() => { canvas.remove(); }, 1500); 
+            }, 5000); 
         });
 
-        // Core Ecosystem Data Controller
+        // Data Core Engine Subsystems
         let journalData = [];
         let featuredData = [];
         let currentCarouselIndex = 0;
@@ -258,7 +371,7 @@
                 
                 document.getElementById('journalSearch').addEventListener('input', handleSearch);
             } catch (err) {
-                console.error("System structural data failure:", err);
+                console.error("Data layer structural synchronization failure:", err);
             }
         }
 
@@ -270,6 +383,7 @@
             featuredData.forEach((item, idx) => {
                 const img = document.createElement('img');
                 img.src = item.image;
+                img.alt = item.title;
                 img.className = `carousel-img-item ${idx === 0 ? 'active' : ''}`;
                 track.appendChild(img);
             });
@@ -308,7 +422,7 @@
             const count = document.getElementById('resultsCount');
             
             container.innerHTML = '';
-            count.innerText = `${dataset.length} structural records`;
+            count.innerText = `${dataset.length} items cataloged`;
 
             if(!dataset.length) {
                 noResults.style.display = 'block';
@@ -316,13 +430,14 @@
             }
             noResults.style.display = 'none';
 
-            dataset.forEach(item => {
+            dataset.forEach((item, index) => {
                 const card = document.createElement('a');
                 card.href = item.url;
                 card.className = 'item-card';
+                card.style.animationDelay = `${index * 0.08}s`;
                 card.innerHTML = `
                     <div class="img-wrapper"><img src="${item.image}" alt="${item.title}"></div>
-                    <div style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-muted); margin-bottom:0.5rem;">${item.tag}</div>
+                    <div class="card-meta">${item.tag} • ${item.issue}</div>
                     <h4 class="card-title">${item.title}</h4>
                     <p class="card-excerpt">${item.excerpt}</p>
                 `;
@@ -335,7 +450,8 @@
             const filtered = journalData.filter(item => {
                 return item.title.toLowerCase().includes(q) || 
                        item.excerpt.toLowerCase().includes(q) || 
-                       item.tag.toLowerCase().includes(q);
+                       item.tag.toLowerCase().includes(q) ||
+                       item.issue.toLowerCase().includes(q);
             });
             renderGrid(filtered);
         }
