@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TYSON Media Group | Automotive Journal</title>
     
-    <!-- Premium Editorial Typography Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,152 +20,141 @@
             --font-accent: 'Montserrat', sans-serif;
         }
 
-        /* Cinematic Preloader */
-        #preloader-canvas {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--bg-black); z-index: 99999;
-            display: flex; justify-content: center; align-items: center; overflow: hidden;
-            opacity: 1; transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        #preloader-canvas video { width: 100%; height: 100%; object-fit: cover; }
-        body.intro-active { overflow: hidden; }
-
-        /* Main Canvas Framework */
         body {
             background-color: var(--bg-black); color: var(--text-light);
             font-family: var(--font-accent); font-weight: 200; line-height: 1.7; overflow-x: hidden;
         }
 
-        /* Ambient Texture */
         body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.03; pointer-events: none; z-index: 9999;
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.02; pointer-events: none; z-index: 9999;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        .ambient-glow {
-            position: fixed; width: 65vw; height: 65vw; border-radius: 50%;
-            background: radial-gradient(circle, rgba(150, 160, 175, 0.09) 0%, rgba(0,0,0,0) 70%);
-            filter: blur(90px); pointer-events: none; z-index: -1; animation: drift 30s infinite alternate ease-in-out;
-        }
-        .glow-1 { top: -25%; left: -15%; }
-        @keyframes drift { 0% { transform: translate(0, 0); } 100% { transform: translate(6%, 4%); } }
-
-        /* Navigation Layout */
+        /* Fixed Navigation */
         header {
-            position: fixed; top: 0; left: 0; width: 100%; padding: 2.2rem 4%; display: flex; justify-content: space-between; align-items: center; z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0)); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            position: fixed; top: 0; left: 0; width: 100%; padding: 2rem 4%; display: flex; justify-content: space-between; align-items: center; z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0)); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
         }
-        .nav-logo img { height: 14px; width: auto; display: block; opacity: 0.85; }
-        nav a { color: var(--text-light); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; margin-left: 2.5rem; opacity: 0.5; transition: opacity 0.4s; }
-        nav a:hover { opacity: 1; }
-
-        /* Hero Layout - Configured for wide logo mark */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 8%; text-align: center; }
+        .nav-logo img { height: 13px; width: auto; display: block; opacity: 0.9; }
         
-        .hero-logo { 
-            max-width: 880px; 
-            width: 88%; 
-            height: auto;
-            margin-bottom: 4rem; 
-            opacity: 0.98; 
-            display: block;
-            filter: drop-shadow(0 0 40px rgba(255,255,255,0.02));
+        /* Integrated Search Input */
+        .search-container { position: relative; display: flex; align-items: center; }
+        .search-input {
+            background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-light); font-family: var(--font-accent); font-size: 0.75rem; font-weight: 300;
+            padding: 0.4rem 0.8rem 0.4rem 0; width: 180px; letter-spacing: 0.1em;
+            transition: width 0.4s, border-color 0.4s;
+        }
+        .search-input:focus { outline: none; width: 240px; border-color: rgba(255,255,255,0.5); }
+        .search-input::placeholder { color: rgba(255,255,255,0.2); text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.2em; }
+
+        /* Split-Screen Hero Carousel */
+        .carousel-hero { 
+            height: 85vh; width: 100vw; display: grid; grid-template-columns: 1.2fr 1.8fr; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); position: relative; background: #050505;
         }
         
-        .hero h1 { 
-            font-family: var(--font-editorial); 
-            font-size: calc(1.7rem + 1.3vw); 
-            font-weight: 300; 
-            font-style: italic; 
-            max-width: 820px; 
-            letter-spacing: -0.01em;
-            color: rgba(255,255,255,0.78); 
+        .carousel-meta-pane { 
+            padding: 12% 10% 8% 10%; display: flex; flex-direction: column; 
+            justify-content: center; position: relative; border-right: 1px solid rgba(255,255,255,0.03); 
         }
+        .carousel-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .carousel-title { font-family: var(--font-editorial); font-size: calc(2rem + 1vw); font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+        .carousel-excerpt { color: var(--text-muted); font-size: 0.9rem; font-weight: 300; margin-bottom: 3rem; max-width: 420px; }
+        .carousel-link { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-light); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: opacity 0.3s; }
+        .carousel-link:hover { opacity: 0.7; }
 
-        /* Editorial Content Grid layout */
-        section { padding: 9rem 10%; max-width: 1400px; margin: 0 auto; }
-        .section-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-muted); margin-bottom: 4rem; display: block; }
+        /* Carousel Navigation Mechanics */
+        .carousel-controls { position: absolute; bottom: 3rem; left: 10%; display: flex; gap: 1.5rem; align-items: center; }
+        .ctrl-btn { background: none; border: none; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; transition: color 0.3s; padding: 0.5rem; }
+        .ctrl-btn:hover { color: var(--text-light); }
+        .carousel-counter { font-size: 0.75rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.2); font-weight: 400; }
 
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 5rem 3.5rem; }
-        .review-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-        .thumbnail-box { width: 100%; aspect-ratio: 16/10; background: #070708; margin-bottom: 1.8rem; overflow: hidden; border: 1px solid rgba(255,255,255,0.01); transition: border-color 0.6s; }
-        .thumbnail-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: grayscale(35%) contrast(90%); transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.7s, filter 0.7s; }
+        /* Visual Frame Window */
+        .carousel-visual-pane { position: relative; width: 100%; height: 100%; overflow: hidden; }
+        .carousel-img-track { width: 100%; height: 100%; position: relative; }
+        .carousel-img-item { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            object-fit: cover; opacity: 0; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
+            filter: grayscale(15%) contrast(95%); pointer-events: none;
+        }
+        .carousel-img-item.active { opacity: 0.5; pointer-events: auto; }
+
+        /* Journal Database Catalog Grid */
+        .catalog-section { padding: 7rem 6%; max-width: 1600px; margin: 0 auto; }
+        .catalog-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 1rem; }
+        .section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-muted); }
+        .results-count { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.3); }
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 4.5rem 3rem; transition: opacity 0.3s; }
         
-        .review-card:hover .thumbnail-box img { transform: scale(1.015); opacity: 0.8; filter: grayscale(10%) contrast(100%); }
-        .review-card:hover .thumbnail-box { border-color: rgba(255,255,255,0.08); }
+        /* Grid Cards built for high inventory */
+        .item-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; animation: fadeIn 0.5s ease-out forwards; }
+        .img-wrapper { width: 100%; aspect-ratio: 16/10; background: #09090a; margin-bottom: 1.5rem; overflow: hidden; border: 1px solid rgba(255,255,255,0.01); }
+        .item-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.45; filter: grayscale(30%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s; }
+        .item-card:hover img { transform: scale(1.02); opacity: 0.75; filter: grayscale(0%); }
         
-        .meta-data { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 0.8rem; }
-        .review-card h3 { font-family: var(--font-editorial); font-size: 1.9rem; font-weight: 400; margin-bottom: 0.6rem; letter-spacing: -0.01em; line-height: 1.25; }
-        .excerpt { color: var(--text-muted); font-size: 0.9rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-meta { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 0.6rem; }
+        .card-title { font-family: var(--font-editorial); font-size: 1.65rem; font-weight: 400; line-height: 1.3; margin-bottom: 0.5rem; }
+        .card-excerpt { color: var(--text-muted); font-size: 0.85rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-        .contact-content h2 { font-family: var(--font-editorial); font-size: calc(2.2rem + 1.2vw); font-weight: 300; margin-bottom: 2.5rem; max-width: 800px; }
-        .contact-email { font-family: var(--font-editorial); font-size: calc(1.6rem + 1vw); color: var(--text-light); text-decoration: none; display: inline-block; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.15); transition: border-color 0.4s; }
-        .contact-email:hover { border-color: rgba(255,255,255,0.8); }
+        .no-results { display: none; text-align: center; padding: 6rem 0; font-family: var(--font-editorial); font-size: 1.8rem; font-style: italic; color: var(--text-muted); }
 
-        footer { padding: 5rem 10% 4rem 10%; border-top: 1px solid rgba(255,255,255,0.02); display: flex; justify-content: space-between; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
-        @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; } nav { display: none; } }
+        footer { padding: 5rem 6% 4rem 6%; border-top: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; font-size: 0.72rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 968px) { .carousel-hero { grid-template-columns: 1fr; height: auto; } .carousel-meta-pane { padding: 8rem 6% 4rem 6%; border-right: none; } .carousel-visual-pane { height: 45vh; } .carousel-controls { bottom: 1.5rem; left: 6%; } }
     </style>
 </head>
-<body class="intro-active">
-
-    <!-- PRELOADER -->
-    <div id="preloader-canvas">
-        <video autoplay muted playsinline id="intro-video">
-            <source src="preload/asfdjkl;.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <div class="ambient-glow glow-1"></div>
+<body>
 
     <header>
         <div class="nav-logo">
             <img src="imagestuff/logostuff/mainweblogo.png" alt="TYSON">
         </div>
-        <nav>
-            <a href="#reviews">Reviews</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <div class="search-container">
+            <input type="text" id="journalSearch" class="search-input" placeholder="Search Index...">
+        </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <!-- FIXED: Pointing exactly to your high-res cropped wide brand logo -->
-            <img src="imagestuff/logostuff/mainweblogo.png" alt="TYSON Media Group" class="hero-logo">
-            <h1>Automotive design analyzed through a quiet, atmospheric lens.</h1>
-        </section>
-
-        <section id="reviews">
-            <span class="section-tag">Recent Road Tests</span>
-            <div class="reviews-grid">
+    <main style="padding-top: 5.5rem;">
+        
+        <!-- TOP FEATURED CAROUSEL DEEP TIE-IN -->
+        <section class="carousel-hero">
+            <div class="carousel-meta-pane">
+                <div id="carouselMeta" class="carousel-tag"></div>
+                <h2 id="carouselTitle" class="carousel-title"></h2>
+                <p id="carouselExcerpt" class="carousel-excerpt"></p>
+                <a href="#" id="carouselLink" class="carousel-link">Read Analysis →</a>
                 
-                <a href="reviews/porsche-911.html" class="review-card">
-                    <div class="thumbnail-box">
-                        <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800&q=80" alt="Porsche 911">
-                    </div>
-                    <div class="meta-data">Road Test • Issue 04</div>
-                    <h3>Porsche 911 (964): Midnight Shadows</h3>
-                    <p class="excerpt">An exploration of classic air-cooled geometry set against the desolate backdrop of concrete rest stations at dusk.</p>
-                </a>
-
-                <a href="reviews/bmw-e9.html" class="review-card">
-                    <div class="thumbnail-box">
-                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="BMW E9">
-                    </div>
-                    <div class="meta-data">Road Test • Issue 03</div>
-                    <h3>Chasing Fog in the BMW E9 CSL</h3>
-                    <p class="excerpt">Tracing the legendary pillarless silhouette through the morning haze of winding coastal highways.</p>
-                </a>
-
+                <div class="carousel-controls">
+                    <button class="ctrl-btn" id="prevBtn">←</button>
+                    <span class="carousel-counter" id="carouselCounter">01 / 02</span>
+                    <button class="ctrl-btn" id="nextBtn">→</button>
+                </div>
+            </div>
+            
+            <div class="carousel-visual-pane">
+                <div class="carousel-img-track" id="imageTrack">
+                    <!-- Dynamic images populate here to track active state changes natively -->
+                </div>
             </div>
         </section>
 
-        <section id="contact">
-            <span class="section-tag">Correspondence</span>
-            <div class="contact-content">
-                <h2>Step into the landscape. Let’s project something enduring together.</h2>
-                <a href="mailto:tyson26rs26@gmail.com" class="contact-email">tyson26rs26@gmail.com</a>
+        <!-- AUTOMATED CATALOG ARCHIVE GRID WITH SYSTEM FILTERS -->
+        <section class="catalog-section">
+            <div class="catalog-header">
+                <h3 class="section-title">The Journal Catalog</h3>
+                <span id="resultsCount" class="results-count">0 items</span>
             </div>
+            
+            <div id="gridContainer" class="grid-container">
+                <!-- JavaScript handles population seamlessly -->
+            </div>
+            <div id="noResults" class="no-results">No indices match your query.</div>
         </section>
+
     </main>
 
     <footer>
@@ -174,16 +162,120 @@
         <p>Stillness in Motion.</p>
     </footer>
 
+    <!-- ENGINE SCRIPTS -->
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('preloader-canvas');
-            setTimeout(() => {
-                canvas.style.opacity = '0';
-                document.body.classList.remove('intro-active');
-                setTimeout(() => { canvas.remove(); }, 1000); 
-            }, 5000);
-        });
-    </script>
+        let journalData = [];
+        let featuredData = [];
+        let currentCarouselIndex = 0;
 
+        // Fetch Master JSON Archive
+        async function loadJournalEngine() {
+            try {
+                const response = await fetch('reviews.json');
+                journalData = await response.json();
+                
+                // Segment data components
+                featuredData = journalData.filter(item => item.featured);
+                
+                initCarousel();
+                renderGrid(journalData);
+                
+                // Attach Search Listener
+                document.getElementById('journalSearch').addEventListener('input', handleSearch);
+            } catch (error) {
+                console.error("Failed to interface with journal data repository:", error);
+            }
+        }
+
+        // --- CAROUSEL SUBSYSTEM ---
+        function initCarousel() {
+            if(!featuredData.length) return;
+            
+            const imageTrack = document.getElementById('imageTrack');
+            imageTrack.innerHTML = '';
+
+            // Map images directly into the structural node path
+            featuredData.forEach((item, idx) => {
+                const img = document.createElement('img');
+                img.src = item.image;
+                img.alt = item.title;
+                img.className = `carousel-img-item ${idx === 0 ? 'active' : ''}`;
+                imageTrack.appendChild(img);
+            });
+
+            updateCarouselDisplay();
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                currentCarouselIndex = (currentCarouselIndex + 1) % featuredData.length;
+                updateCarouselDisplay();
+            });
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                currentCarouselIndex = (currentCarouselIndex - 1 + featuredData.length) % featuredData.length;
+                updateCarouselDisplay();
+            });
+        }
+
+        function updateCarouselDisplay() {
+            const currentItem = featuredData[currentCarouselIndex];
+            if(!currentItem) return;
+
+            // Shift Typography Nodes
+            document.getElementById('carouselMeta').innerText = `${currentItem.tag} • ${currentItem.issue}`;
+            document.getElementById('carouselTitle').innerText = currentItem.title;
+            document.getElementById('carouselExcerpt').innerText = currentItem.excerpt;
+            document.getElementById('carouselLink').href = currentItem.url;
+            document.getElementById('carouselCounter').innerText = `${String(currentCarouselIndex + 1).padStart(2, '0')} / ${String(featuredData.length).padStart(2, '0')}`;
+
+            // Shift Graphic Layout States
+            const images = document.querySelectorAll('.carousel-img-item');
+            images.forEach((img, idx) => {
+                img.classList.toggle('active', idx === currentCarouselIndex);
+            });
+        }
+
+        // --- DYNAMIC GRID CATALOG & LIVE FILTERING ---
+        function renderGrid(dataset) {
+            const grid = document.getElementById('gridContainer');
+            const noResults = document.getElementById('noResults');
+            const counter = document.getElementById('resultsCount');
+            
+            grid.innerHTML = '';
+            counter.innerText = `${dataset.length} ${dataset.length === 1 ? 'item' : 'items'}`;
+
+            if(dataset.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+            noResults.style.display = 'none';
+
+            dataset.forEach(item => {
+                const card = document.createElement('a');
+                card.href = item.url;
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <div class="img-wrapper">
+                        <img src="${item.image}" alt="${item.title}">
+                    </div>
+                    <div class="card-meta">${item.tag} • ${item.issue}</div>
+                    <h4 class="card-title">${item.title}</h4>
+                    <p class="card-excerpt">${item.excerpt}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            const filtered = journalData.filter(item => {
+                return item.title.toLowerCase().includes(query) || 
+                       item.excerpt.toLowerCase().includes(query) ||
+                       item.issue.toLowerCase().includes(query);
+            });
+            renderGrid(filtered);
+        }
+
+        // Ignition
+        window.addEventListener('DOMContentLoaded', loadJournalEngine);
+    </script>
 </body>
 </html>
