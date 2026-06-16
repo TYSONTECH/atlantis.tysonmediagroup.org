@@ -38,6 +38,7 @@
             background-color: var(--bg-deep); z-index: 99999;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
             opacity: 1; transition: opacity 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
         }
         #preloader-canvas video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
 
@@ -98,12 +99,11 @@
 
         /* Widescreen Custom Cinema Screening Interface */
         .broadcast-hub { max-width: 100%; padding: 6rem 5% 12rem 5%; background: linear-gradient(to bottom, var(--bg-deep), var(--bg-black)); }
-        .video-canvas-wrapper { border: 1px solid var(--border-color); background: #000; padding: 0.5rem; position: relative; }
+        .video-canvas-wrapper { border: 1px solid var(--border-color); background: #000; padding: 0.5rem; position: relative; cursor: pointer; }
         .video-canvas-container { width: 100%; aspect-ratio: 21/9; position: relative; overflow: hidden; }
         .video-canvas-container video { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: contrast(102%) grayscale(10%); transition: var(--transition-main); }
         .video-canvas-wrapper:hover video { opacity: 0.7; }
         
-        /* Simulated Player Overlay Graphics */
         .video-interface-overlay { position: absolute; bottom: 2rem; left: 2rem; right: 2rem; display: flex; justify-content: space-between; align-items: center; pointer-events: none; opacity: 0.7; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); }
         .video-status { display: flex; align-items: center; gap: 0.6rem; }
         .video-status span { width: 6px; height: 6px; background: #ff3b30; border-radius: 50%; display: inline-block; }
@@ -124,7 +124,7 @@
         .carousel-excerpt { color: rgba(255,255,255,0.45); font-size: 0.92rem; font-weight: 300; max-width: 550px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6; }
         
         .carousel-nav-interface { display: flex; flex-direction: column; align-items: flex-end; gap: 2rem; }
-        .carousel-link { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-light); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 0.3rem; transition: var(--transition-main); font-weight: 500; }
+        .carousel-link { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-light); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 0.3rem; transition: var(--transition-main); font-weight: 500; cursor: pointer; }
         .carousel-link:hover { border-color: var(--text-light); opacity: 0.8; }
         
         .carousel-controls { display: flex; align-items: center; gap: 2.5rem; }
@@ -133,7 +133,8 @@
         .carousel-counter { font-size: 0.68rem; letter-spacing: 0.25em; color: rgba(255,255,255,0.18); font-weight: 400; }
 
         /* Advanced Tab Matrix System Filter Header */
-        .catalog-matrix-controls { display: flex; gap: 2rem; margin-bottom: 4.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .catalog-matrix-controls { display: flex; gap: 2rem; margin-bottom: 4.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; overflow-x: auto; white-space: nowrap; -ms-overflow-style: none; scrollbar-width: none; }
+        .catalog-matrix-controls::-webkit-scrollbar { display: none; }
         .matrix-tab { background: none; border: none; color: var(--text-muted); font-family: var(--font-accent); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.25em; cursor: pointer; padding-bottom: 1rem; position: relative; transition: var(--transition-main); font-weight: 500; }
         .matrix-tab:hover { color: var(--text-light); }
         .matrix-tab.active { color: var(--text-light); }
@@ -144,12 +145,18 @@
 
         /* Premium Print Layout Catalog Grid */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 6.5rem 3.5rem; }
-        .item-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; opacity: 0; transform: translateY(15px); animation: itemReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .item-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; opacity: 0; transform: translateY(15px); animation: itemReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; cursor: pointer; }
         .img-wrapper { width: 100%; aspect-ratio: 16/10; background: #080809; margin-bottom: 2rem; overflow: hidden; border: 1px solid var(--border-color); position: relative; }
-        .item-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: grayscale(30%); transition: var(--transition-main); }
-        .item-card:hover img { transform: scale(1.02); opacity: 0.85; filter: grayscale(0%); }
         
-        .card-meta { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-muted); margin-bottom: 0.9rem; font-weight: 500; }
+        /* Play State Overlay */
+        .img-wrapper::after { content: "PLAY"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.6rem; letter-spacing: 0.4em; font-weight: 500; color: #fff; opacity: 0; transition: var(--transition-main); z-index: 2; border: 1px solid rgba(255,255,255,0.2); padding: 0.8rem 1.4rem; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); }
+        .item-card:hover .img-wrapper::after { opacity: 1; letter-spacing: 0.5em; }
+
+        .item-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: grayscale(30%); transition: var(--transition-main); }
+        .item-card:hover img { transform: scale(1.02); opacity: 0.6; filter: grayscale(0%); }
+        
+        .card-meta { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-muted); margin-bottom: 0.9rem; font-weight: 500; display: flex; justify-content: space-between; }
+        .card-meta-chan { color: rgba(255,255,255,0.25); }
         .card-title { font-family: var(--font-editorial); font-size: 1.85rem; font-weight: 400; line-height: 1.25; margin-bottom: 0.7rem; letter-spacing: -0.005em; }
         .card-excerpt { color: var(--text-muted); font-size: 0.88rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.65; }
         .no-results { display: none; text-align: center; padding: 9rem 0; font-family: var(--font-editorial); font-size: 1.8rem; color: var(--text-muted); font-style: italic; border: 1px dashed var(--border-color); }
@@ -159,7 +166,6 @@
         .matrix-cell { border: 1px solid var(--border-color); background: rgba(255,255,255,0.002); padding: 4.5rem 3.5rem; text-decoration: none; color: inherit; transition: var(--transition-main); display: flex; flex-direction: column; justify-content: space-between; min-height: 350px; position: relative; }
         .matrix-cell:hover { border-color: var(--border-heavy); background: rgba(255,255,255,0.01); }
         
-        /* Direct External Access Node Pin */
         .matrix-cell-arrow { position: absolute; top: 3rem; right: 3rem; font-size: 0.8rem; opacity: 0.15; transition: var(--transition-main); }
         .matrix-cell:hover .matrix-cell-arrow { opacity: 0.8; transform: translate(3px, -3px); }
 
@@ -188,6 +194,24 @@
 
         .roster-bio { font-size: 0.88rem; color: var(--text-muted); font-weight: 300; line-height: 1.65; margin-bottom: auto; }
 
+        /* CINEMATIC BROADCAST LIGHTBOX OVERLAY */
+        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(3,3,3,0.98); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .lightbox-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .lightbox-container { width: 90%; max-width: 1200px; display: flex; flex-direction: column; gap: 1.5rem; transform: scale(0.97); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .lightbox-overlay.active .lightbox-container { transform: scale(1); }
+        
+        .lightbox-video-frame { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid rgba(255,255,255,0.05); position: relative; }
+        .lightbox-video-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+        
+        .lightbox-meta-footer { display: flex; justify-content: space-between; align-items: flex-start; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; }
+        .lightbox-title-stack { max-width: 70%; }
+        .lightbox-title { font-family: var(--font-editorial); font-size: 1.8rem; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+        .lightbox-desc { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; line-height: 1.5; }
+        
+        .lightbox-close-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: var(--text-light); font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; padding: 0.8rem 1.6rem; cursor: pointer; transition: var(--transition-main); }
+        .lightbox-close-btn:hover { background: #fff; color: #000; border-color: #fff; }
+
         /* Global Footer Block */
         footer { padding: 8rem 5% 5rem 5%; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 0.68rem; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; font-weight: 400; }
         .footer-closing { font-family: var(--font-editorial); font-style: italic; text-transform: none; letter-spacing: 0; color: rgba(255,255,255,0.4); font-size: 0.95rem; }
@@ -205,6 +229,8 @@
             nav { display: none; }
             .search-container { border-left: none; padding-left: 0; }
             .nav-right-cluster { gap: 2rem; }
+            .lightbox-meta-footer { flex-direction: column; gap: 2rem; }
+            .lightbox-title-stack { max-width: 100%; }
         }
     </style>
 </head>
@@ -217,6 +243,22 @@
         </video>
     </div>
 
+    <!-- CINEMATIC LIGHTBOX SYSTEM COMPONENT -->
+    <div id="videoLightbox" class="lightbox-overlay">
+        <div class="lightbox-container">
+            <div class="lightbox-video-frame">
+                <iframe id="lightboxIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="lightbox-meta-footer">
+                <div class="lightbox-title-stack">
+                    <h3 id="lightboxTitle" class="lightbox-title">Transmission</h3>
+                    <p id="lightboxDesc" class="lightbox-desc">Syncing data stream...</p>
+                </div>
+                <button id="closeLightbox" class="lightbox-close-btn">Disconnect // Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- MAIN PLATFORM NAVIGATION FRAME -->
     <header>
         <div class="nav-brand-container">
@@ -227,12 +269,12 @@
         <div class="nav-right-cluster">
             <nav>
                 <a href="#broadcast">Broadcast</a>
-                <a href="#journal">Journal</a>
+                <a href="#journal">Transmission Registry</a>
                 <a href="#network">Network</a>
                 <a href="#collective">Collective</a>
             </nav>
             <div class="search-container">
-                <input type="text" id="journalSearch" class="search-input" placeholder="Search Master Index...">
+                <input type="text" id="journalSearch" class="search-input" placeholder="Search Broadcasts...">
             </div>
         </div>
     </header>
@@ -248,21 +290,22 @@
             <div class="scroll-indicator">Scroll to Interface</div>
         </section>
 
-        <!-- WIDESCREEN FILM ARCHIVE hub -->
+        <!-- WIDESCREEN FILM ARCHIVE HUB -->
         <section id="broadcast" class="broadcast-hub">
             <div class="section-tag-line">
                 <span class="section-tag">Featured Broadcast Deck</span>
                 <div class="section-line"></div>
             </div>
             
-            <div class="video-canvas-wrapper">
+            <!-- Main Video Click Triggers Lightbox -->
+            <div class="video-canvas-wrapper" onclick="launchLightbox('dQw4w9WgXcQ', 'TYSON Media Network // Master Loop Reel', 'Core visual compilation documenting active production operations across automotive testing grounds and sound projection environments.')">
                 <div class="video-canvas-container">
                     <video autoplay muted loop playsinline>
                         <source src="preload/asfdjkl;.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="video-interface-overlay">
-                    <div class="video-status"><span></span>Live Network Screening Loop</div>
+                    <div class="video-status"><span></span>Live Network Screening Loop [CLICK TO OPEN]</div>
                     <div>Aspect 21 : 9 // RAW SOURCE</div>
                 </div>
             </div>
@@ -271,13 +314,13 @@
         <!-- INTERACTIVE STREAM STRIP CAROUSEL ENGINE -->
         <section id="journal" style="padding-bottom: 4rem;">
             <div class="section-tag-line">
-                <span class="section-tag">Latest Editorial Releases</span>
+                <span class="section-tag">Network Spotlight Broadcasts</span>
                 <div class="section-line"></div>
             </div>
             
             <div class="carousel-deck">
                 <div class="carousel-visual-pane" id="imageTrack">
-                    <!-- Dynamic Images Populate Automatically From Runtime Subsystem -->
+                    <!-- Dynamic Images Populate Automatically -->
                 </div>
                 
                 <div class="carousel-content-overlay">
@@ -288,7 +331,7 @@
                     </div>
                     
                     <div class="carousel-nav-interface">
-                        <a href="#" id="carouselLink" class="carousel-link">Access Asset →</a>
+                        <span id="carouselLink" class="carousel-link">Launch Stream →</span>
                         <div class="carousel-controls">
                             <button class="ctrl-btn" id="prevBtn">←</button>
                             <span class="carousel-counter" id="carouselCounter">01 / 01</span>
@@ -299,13 +342,14 @@
             </div>
         </section>
 
-        <!-- SYSTEM INTERFACE SORTABLE REGISTRY DATA GRID -->
+        <!-- RE-ENGINEERED YOUTUBE REVIEWS INTEGRATION MATRIX -->
         <section style="padding-top: 2rem;">
             <div class="catalog-matrix-controls">
-                <button class="matrix-tab active" onclick="filterCategory('all', this)">All Channels</button>
-                <button class="matrix-tab" onclick="filterCategory('reviews', this)">Car Reviews</button>
-                <button class="matrix-tab" onclick="filterCategory('audio', this)">Atlantis Audio</button>
-                <button class="matrix-tab" onclick="filterCategory('aviation', this)">Aviation Logs</button>
+                <button class="matrix-tab active" onclick="filterCategory('all', this)">All Feeds</button>
+                <button class="matrix-tab" onclick="filterCategory('flagship', this)">TYSON Media Group</button>
+                <button class="matrix-tab" onclick="filterCategory('atlantis', this)">TYSON Atlantis</button>
+                <button class="matrix-tab" onclick="filterCategory('aviation', this)">TYSON Aviation</button>
+                <button class="matrix-tab" onclick="filterCategory('collective', this)">Creative Collective</button>
             </div>
             
             <div class="catalog-header-meta">
@@ -313,7 +357,7 @@
             </div>
             
             <div id="gridContainer" class="grid-container"></div>
-            <div id="noResults" class="no-results">No indices match tracking matrix specifications.</div>
+            <div id="noResults" class="no-results">No active video indexes match configuration matrix filters.</div>
         </section>
 
         <!-- UMBRELLA DIVISION STATIONS SEPARATOR -->
@@ -353,7 +397,7 @@
             </div>
         </section>
 
-        <!-- HUMAN ELEMENT: DIRECTORY Collective MATRIX -->
+        <!-- HUMAN ELEMENT: DIRECTORY COLLECTIVE MATRIX -->
         <section id="collective" style="padding-bottom: 14rem;">
             <div class="section-tag-line">
                 <span class="section-tag">The Network Collective</span>
@@ -400,7 +444,6 @@
                             <span class="roster-pronoun">Pronouns: He / Him</span>
                             <span class="roster-role">Creative Director</span>
                         </div>
-                        <!-- No YouTube Node Attached -->
                     </div>
                     <p class="roster-bio">Maintains aesthetic balance across production tracks. Specializes in anchoring core experimental engineering scripts to reality while optimizing system execution parameters.</p>
                 </div>
@@ -446,89 +489,172 @@
         <p class="footer-closing">Stillness in Motion.</p>
     </footer>
 
-    <!-- RUNTIME LOGIC ENGINE -->
+    <!-- RUNTIME DATA & VIDEO INTERFACE LOGIC ENGINE -->
     <script>
-        // Kinetic Film Intro Playback Lifecycle
+        // Kinetic Film Intro Playback Lifecycle Control
         window.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('preloader-canvas');
             setTimeout(() => {
-                canvas.style.opacity = '0';
-                document.body.classList.remove('intro-active');
-                setTimeout(() => { canvas.remove(); }, 1600); 
-            }, 5000); 
+                if(canvas) {
+                    canvas.style.opacity = '0';
+                    document.body.classList.remove('intro-active');
+                    setTimeout(() => { canvas.remove(); }, 1600); 
+                }
+            }, 4000); 
         });
 
-        // Fail-safe Inline Master Dataset (Runs immediately if reviews.json is detached)
-        let fallbackDatabase = [
+        /* 
+           MASTER PLATFORM INTEGRATED BROADCAST DATABASE 
+           Note: Replace the 'ytId' values with your real YouTube video IDs.
+        */
+        const broadcastMasterRegistry = [
             {
-                "id": "porsche-911",
-                "title": "Porsche 911 (964): Midnight Shadows",
-                "url": "reviews/porsche-911.html",
+                "id": "tmg-review-911",
+                "title": "Porsche 911 (964) Carrera: Air-Cooled Synesthesia",
+                "ytId": "dQw4w9WgXcQ", 
                 "image": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
-                "tag": "Reviews",
-                "issue": "Volume 04",
-                "excerpt": "An exploration of classic air-cooled geometry set against the desolate backdrop of concrete rest stations at dusk.",
+                "tag": "flagship",
+                "channelName": "@TYSONMediaGroup",
+                "issue": "Review Log #042",
+                "excerpt": "Analyzing mechanical tactile feel and engine induction notes through abandoned industrial shipping sectors at dawn.",
                 "featured": true
             },
             {
-                "id": "bmw-e9",
-                "title": "Chasing Fog in the BMW E9 CSL",
-                "url": "reviews/bmw-e9.html",
+                "id": "tmg-review-bmw",
+                "title": "BMW E9 CSL Custom Build: Structural Design Review",
+                "ytId": "dQw4w9WgXcQ",
                 "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
-                "tag": "Reviews",
-                "issue": "Volume 03",
-                "excerpt": "Tracing the legendary pillarless silhouette through the morning haze of winding coastal highways.",
+                "tag": "flagship",
+                "channelName": "@TYSONMediaGroup",
+                "issue": "Review Log #039",
+                "excerpt": "A deep cinematic dive tracking the aggressive aerodynamics and lightweight composite updates of an icon.",
                 "featured": true
             },
             {
-                "id": "atlantis-sonic-01",
-                "title": "Acoustic Geometry: Pitch Modulation 108",
-                "url": "#",
+                "id": "atl-track-01",
+                "title": "Acoustic Compression Matrix: Sped Up & Pitched Session 09",
+                "ytId": "dQw4w9WgXcQ",
                 "image": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
-                "tag": "Audio",
-                "issue": "Atlantis Data",
-                "excerpt": "A deep study on structural compression curves, evaluating altered pitch frequencies for continuous spatial focus.",
+                "tag": "atlantis",
+                "channelName": "@tysonatlantis",
+                "issue": "Sonic Feed",
+                "excerpt": "Atmospheric soundscape tracking structural modulation algorithms, tailored for long-play background workflow insulation.",
+                "featured": true
+            },
+            {
+                "id": "av-track-01",
+                "title": "Pre-Flight Engineering: Flight Deck System Blueprint Alpha",
+                "ytId": "dQw4w9WgXcQ",
+                "image": "https://images.unsplash.com/photo-1519074069444-1ba4ae167512?auto=format&fit=crop&w=1200&q=80",
+                "tag": "aviation",
+                "channelName": "@tysonmediagroup-aviation",
+                "issue": "Aviation Teaser",
+                "excerpt": "Initial systems alignment analysis and visual confirmation protocols ahead of the formal program rollout phase.",
                 "featured": false
             },
             {
-                "id": "aviation-intro-01",
-                "title": "Aerodynamic Thresholds: Launch Architecture",
-                "url": "#",
-                "image": "https://images.unsplash.com/photo-1519074069444-1ba4ae167512?auto=format&fit=crop&w=1200&q=80",
-                "tag": "Aviation",
-                "issue": "Aviation Alpha",
-                "excerpt": "Documenting structural propulsion frameworks and flight decks prior to the initial activation of our airborne division.",
+                "id": "custard-01",
+                "title": "Tyler's Workshop Logs: Raw Conceptual Render Drafts",
+                "ytId": "dQw4w9WgXcQ",
+                "image": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80",
+                "tag": "collective",
+                "channelName": "@T-Custard-26",
+                "issue": "Ty Personal",
+                "excerpt": "Behind-the-scenes engineering design testing and experimental render scripts from the personal production sandbox.",
+                "featured": false
+            },
+            {
+                "id": "blurry-01",
+                "title": "Ash's Project Matrix: Experimental Formats & Visual Balance",
+                "ytId": "dQw4w9WgXcQ",
+                "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
+                "tag": "collective",
+                "channelName": "@THE-BlurrySyrup",
+                "issue": "Ash Personal",
+                "excerpt": "An abstract editing analysis study exploring temporal spacing and timing variations inside modern design video builds.",
+                "featured": false
+            },
+            {
+                "id": "bubba-vr-01",
+                "title": "High-Fidelity Virtual Reality POV: Track Simulation Test",
+                "ytId": "dQw4w9WgXcQ",
+                "image": "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=1200&q=80",
+                "tag": "collective",
+                "channelName": "@bubbavrgt1",
+                "issue": "Triston VR Lead",
+                "excerpt": "Testing 3D stereoscopic perspective capture models through high-speed elevation changes and compound corners.",
+                "featured": false
+            },
+            {
+                "id": "awesome-z-01",
+                "title": "Aerodynamic Airfoil Stress Analysis Under Thermal Strain",
+                "ytId": "dQw4w9WgXcQ",
+                "image": "https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=1200&q=80",
+                "tag": "collective",
+                "channelName": "@AwesomeZ05",
+                "issue": "Zane Aero Lead",
+                "excerpt": "Tracking computational fluid dynamics datasets across specialized scale wings to forecast actual drag limits.",
                 "featured": false
             }
         ];
 
-        let journalData = [];
         let featuredData = [];
         let currentCarouselIndex = 0;
         let activeCategoryFilter = 'all';
 
-        async function initGlobalEcosystem() {
-            try {
-                const response = await fetch('reviews.json');
-                if (response.ok) {
-                    journalData = await response.json();
-                } else {
-                    journalData = fallbackDatabase;
-                }
-            } catch (err) {
-                console.warn("External data repository detached. Activating internal fallback database asset alignment.");
-                journalData = fallbackDatabase;
-            }
-
-            featuredData = journalData.filter(item => item.featured);
+        function initGlobalEcosystem() {
+            featuredData = broadcastMasterRegistry.filter(item => item.featured);
             
             initCarousel();
             executeRegistryRender();
+            initLightboxEvents();
             
-            document.getElementById('journalSearch').addEventListener('input', handleSearchInput);
+            document.getElementById('journalSearch').addEventListener('input', executeRegistryRender);
         }
 
-        // --- SLIDER ENGINE SUBSYSTEM ---
+        // --- LIGHTBOX INTERFACE ARCHITECTURE JS logic ---
+        function initLightboxEvents() {
+            const lightbox = document.getElementById('videoLightbox');
+            const closeBtn = document.getElementById('closeLightbox');
+            
+            closeBtn.addEventListener('click', closeLightboxSystem);
+            
+            // Close lightbox if clicking outside content frame
+            lightbox.addEventListener('click', (e) => {
+                if(e.target === lightbox) closeLightboxSystem();
+            });
+            
+            // Escape key hook
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'Escape' && lightbox.classList.contains('active')) closeLightboxSystem();
+            });
+        }
+
+        function launchLightbox(youtubeId, title, description) {
+            const iframe = document.getElementById('lightboxIframe');
+            const titleNode = document.getElementById('lightboxTitle');
+            const descNode = document.getElementById('lightboxDesc');
+            const lightbox = document.getElementById('videoLightbox');
+            
+            // Generate clean clean embed URL with autoplay parameters
+            iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&modestbranding=1&rel=0`;
+            titleNode.innerText = title;
+            descNode.innerText = description;
+            
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Keep background locked during play
+        }
+
+        function closeLightboxSystem() {
+            const lightbox = document.getElementById('videoLightbox');
+            const iframe = document.getElementById('lightboxIframe');
+            
+            lightbox.classList.remove('active');
+            iframe.src = ''; // Sever stream connection instantly to kill playback audio
+            document.body.style.overflow = '';
+        }
+
+        // --- CINEMA STRIP SLIDER SUBSYSTEM ---
         function initCarousel() {
             if(!featuredData.length) return;
             const track = document.getElementById('imageTrack');
@@ -552,16 +678,21 @@
                 currentCarouselIndex = (currentCarouselIndex - 1 + featuredData.length) % featuredData.length;
                 updateCarouselDisplay();
             });
+            
+            // Allow carousel banner text to launch lightbox
+            document.getElementById('carouselLink').addEventListener('click', () => {
+                const currentItem = featuredData[currentCarouselIndex];
+                launchLightbox(currentItem.ytId, currentItem.title, currentItem.excerpt);
+            });
         }
 
         function updateCarouselDisplay() {
             const item = featuredData[currentCarouselIndex];
             if(!item) return;
 
-            document.getElementById('carouselMeta').innerText = `${item.tag} • ${item.issue}`;
+            document.getElementById('carouselMeta').innerText = `${item.channelName} • ${item.issue}`;
             document.getElementById('carouselTitle').innerText = item.title;
             document.getElementById('carouselExcerpt').innerText = item.excerpt;
-            document.getElementById('carouselLink').href = item.url;
             document.getElementById('carouselCounter').innerText = `${String(currentCarouselIndex + 1).padStart(2, '0')} / ${String(featuredData.length).padStart(2, '0')}`;
 
             const images = document.querySelectorAll('.carousel-img-item');
@@ -570,25 +701,24 @@
             });
         }
 
-        // --- SORTABLE REGISTRY RENDER MECHANICAL ENGINE ---
+        // --- SORTABLE BROADCAST REGISTRY FILTER ENGINE ---
         function executeRegistryRender() {
             const container = document.getElementById('gridContainer');
             const noResults = document.getElementById('noResults');
             const countNode = document.getElementById('resultsCount');
             const searchQuery = document.getElementById('journalSearch').value.toLowerCase().trim();
             
-            // Multi-tier Sorting Query Matrix execution
-            const filteredDataset = journalData.filter(item => {
-                const matchesCategory = (activeCategoryFilter === 'all') || (item.tag.toLowerCase() === activeCategoryFilter);
+            const filteredDataset = broadcastMasterRegistry.filter(item => {
+                const matchesCategory = (activeCategoryFilter === 'all') || (item.tag === activeCategoryFilter);
                 const matchesSearch = item.title.toLowerCase().includes(searchQuery) || 
                                       item.excerpt.toLowerCase().includes(searchQuery) || 
-                                      item.tag.toLowerCase().includes(searchQuery) ||
+                                      item.channelName.toLowerCase().includes(searchQuery) ||
                                       item.issue.toLowerCase().includes(searchQuery);
                 return matchesCategory && matchesSearch;
             });
 
             container.innerHTML = '';
-            countNode.innerText = `${filteredDataset.length} ledger components isolated`;
+            countNode.innerText = `${filteredDataset.length} broadcast units indexed`;
 
             if(!filteredDataset.length) {
                 noResults.style.display = 'block';
@@ -597,13 +727,19 @@
             noResults.style.display = 'none';
 
             filteredDataset.forEach((item, index) => {
-                const card = document.createElement('a');
-                card.href = item.url;
+                const card = document.createElement('div');
                 card.className = 'item-card';
-                card.style.animationDelay = `${index * 0.05}s`;
+                card.style.animationDelay = `${index * 0.04}s`;
+                
+                // Injection of data straight into Lightbox activation hook on user click
+                card.onclick = () => launchLightbox(item.ytId, item.title, item.excerpt);
+                
                 card.innerHTML = `
                     <div class="img-wrapper"><img src="${item.image}" alt="${item.title}"></div>
-                    <div class="card-meta">${item.tag} • ${item.issue}</div>
+                    <div class="card-meta">
+                        <span>${item.issue}</span>
+                        <span class="card-meta-chan">${item.channelName}</span>
+                    </div>
                     <h4 class="card-title">${item.title}</h4>
                     <p class="card-excerpt">${item.excerpt}</p>
                 `;
@@ -614,15 +750,10 @@
         function filterCategory(category, element) {
             activeCategoryFilter = category;
             
-            // Re-align structural menu active states
             const tabs = document.querySelectorAll('.matrix-tab');
             tabs.forEach(tab => tab.classList.remove('active'));
             element.classList.add('active');
             
-            executeRegistryRender();
-        }
-
-        function handleSearchInput() {
             executeRegistryRender();
         }
 
