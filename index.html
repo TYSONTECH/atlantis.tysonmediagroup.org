@@ -152,6 +152,9 @@
         .img-wrapper::after { content: "PLAY"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.6rem; letter-spacing: 0.4em; font-weight: 500; color: #fff; opacity: 0; transition: var(--transition-main); z-index: 2; border: 1px solid rgba(255,255,255,0.2); padding: 0.8rem 1.4rem; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); }
         .item-card:hover .img-wrapper::after { opacity: 1; letter-spacing: 0.5em; }
 
+        /* Editorial State Shift: Changes hover state text to READ instead of PLAY */
+        .img-wrapper.editorial-node::after { content: "READ"; }
+
         .item-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; filter: grayscale(15%); transition: var(--transition-main); }
         .item-card:hover img { transform: scale(1.02); opacity: 0.75; filter: grayscale(0%); }
         
@@ -488,6 +491,7 @@
 
         /* MASTER PLATFORM INTEGRATED BROADCAST DATABASE 
            AUTOMATED THUMBNAILS: System automatically pulls the official maxres cover for each video using its ID.
+           EDITORIAL MAPPING: Added localUrl and localThumb options to gracefully bypass the lightbox structure for written columns.
         */
         const broadcastMasterRegistry = [
             {
@@ -496,7 +500,7 @@
                 "ytId": "XBhHj-1K8YU", 
                 "tag": "aviation",
                 "channelName": "@tysonmediagroup-aviation",
-                "issue": "Video Game • Launch Feature", // CHANGED TO VIDEO GAME TYPE
+                "issue": "Video Game • Launch Feature", 
                 "excerpt": "Welcome to TYSON Aviation. The official programmatic expansion establishing flight deck documentation, mechanical aerospace design analysis, and airborne cinematic essays.",
                 "featured": true
             },
@@ -506,9 +510,11 @@
                 "ytId": "LMv3NhnDtoM", 
                 "tag": "flagship",
                 "channelName": "@TYSONMediaGroup",
-                "issue": "Real Life! • June, 2026", // NEW INJECTED SUBARU ARTICLE INDEX
+                "issue": "Real Life! • June, 2026", 
                 "excerpt": "Subaru's newly formed Sports Vehicle Planning Office drops a massive bombshell: three brand-new manual transmission platforms are slate to launch by 2027.",
-                "featured": true
+                "featured": true,
+                "localUrl": "reviews/subaru-manuals.html",
+                "localThumb": "imagestuff/articlesTHMB/subarumodels1.jpg"
             },
             {
                 "id": "tmg-forza-announcement",
@@ -618,7 +624,8 @@
 
             featuredData.forEach((item, idx) => {
                 const img = document.createElement('img');
-                img.src = getYoutubeThumbnail(item.ytId);
+                // Uses custom local thumbnail if defined, falls back to YouTube asset
+                img.src = item.localThumb || getYoutubeThumbnail(item.ytId);
                 img.alt = item.title;
                 img.className = `carousel-img-item ${idx === 0 ? 'active' : ''}`;
                 track.appendChild(img);
@@ -637,7 +644,12 @@
             
             document.getElementById('carouselLink').addEventListener('click', () => {
                 const currentItem = featuredData[currentCarouselIndex];
-                launchLightbox(currentItem.ytId, currentItem.title, currentItem.excerpt);
+                // Intercepts and redirects if it maps to an editorial page
+                if (currentItem.localUrl) {
+                    window.location.href = currentItem.localUrl;
+                } else {
+                    launchLightbox(currentItem.ytId, currentItem.title, currentItem.excerpt);
+                }
             });
         }
 
@@ -649,6 +661,9 @@
             document.getElementById('carouselTitle').innerText = item.title;
             document.getElementById('carouselExcerpt').innerText = item.excerpt;
             document.getElementById('carouselCounter').innerText = `${String(currentCarouselIndex + 1).padStart(2, '0')} / ${String(featuredData.length).padStart(2, '0')}`;
+            
+            // Adjust label based on whether target is an external stream or internal page
+            document.getElementById('carouselLink').innerText = item.localUrl ? 'Read Review →' : 'Launch Stream →';
 
             const images = document.querySelectorAll('.carousel-img-item');
             images.forEach((img, idx) => {
@@ -686,10 +701,19 @@
                 card.className = 'item-card';
                 card.style.animationDelay = `${index * 0.04}s`;
                 
-                card.onclick = () => launchLightbox(item.ytId, item.title, item.excerpt);
+                // Routes click target intelligently based on presence of a local file path
+                if (item.localUrl) {
+                    card.onclick = () => window.location.href = item.localUrl;
+                } else {
+                    card.onclick = () => launchLightbox(item.ytId, item.title, item.excerpt);
+                }
+                
+                // Appends unique overlay class if target is written content instead of streaming video
+                const imgWrapperClass = item.localUrl ? 'img-wrapper editorial-node' : 'img-wrapper';
+                const thumbSrc = item.localThumb || getYoutubeThumbnail(item.ytId);
                 
                 card.innerHTML = `
-                    <div class="img-wrapper"><img src="${getYoutubeThumbnail(item.ytId)}" alt="${item.title}"></div>
+                    <div class="${imgWrapperClass}"><img src="${thumbSrc}" alt="${item.title}"></div>
                     <div class="card-meta">
                         <span>${item.issue}</span>
                         <span class="card-meta-chan">${item.channelName}</span>
