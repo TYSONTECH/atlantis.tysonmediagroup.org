@@ -42,7 +42,7 @@
         }
         #preloader-canvas video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
 
-        /* Fine Grain Texture Overlap Layer */
+        /* Fine Grain Texture Layer */
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.022; pointer-events: none; z-index: 9999;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -50,26 +50,28 @@
 
         /* Scalable Multi-Brand Header System */
         header {
-            position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 4%; display: flex; flex-direction: column; gap: 1.2rem; z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0)); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: fixed; top: 0; left: 0; width: 100%; padding: 1.8rem 4%; display: flex; flex-direction: column; gap: 1.5rem; z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0)); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--border-color);
         }
         
-        .header-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .header-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 2rem; }
 
-        /* Multi-Subdomain Brand Routing Architecture */
-        .subdomain-routing-deck { display: flex; align-items: center; gap: 2rem; }
-        .brand-route-node { display: block; opacity: 0.35; transition: var(--transition-main); min-height: 44px; display: flex; align-items: center; }
-        .brand-route-node:hover { opacity: 1; }
+        /* Multi-Subdomain Brand Routing Deck (BIGGER LOGOS) */
+        .subdomain-routing-deck { display: flex; align-items: center; gap: 3rem; flex-wrap: nowrap; }
+        .brand-route-node { display: block; opacity: 0.25; transition: var(--transition-main); display: flex; align-items: center; text-decoration: none; }
+        .brand-route-node:hover { opacity: 0.85; }
         .brand-route-node.active-core { opacity: 1; pointer-events: none; }
-        .brand-route-node img { height: 11px; width: auto; display: block; filter: brightness(1); }
+        
+        /* Fixed Sizing Parameters for Widescreen Banners */
+        .brand-route-node img { height: 38px; width: auto; display: block; filter: brightness(1); mix-blend-mode: lighten; }
 
         .nav-right-cluster { display: flex; align-items: center; gap: 3rem; }
         nav { display: flex; gap: 2.5rem; }
         nav a { color: var(--text-light); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; opacity: 0.4; transition: var(--transition-main); font-weight: 400; padding: 0.5rem 0; }
         nav a:hover { opacity: 1; }
 
-        /* Interactive Multi-State Search Component */
+        /* Interactive Search Component */
         .search-container { position: relative; display: flex; align-items: center; background: rgba(255,255,255,0.01); border: 1px solid var(--border-color); padding: 0 1rem; border-radius: 2px; }
         .search-input {
             background: transparent; border: none;
@@ -82,7 +84,7 @@
         .search-clear-btn.visible { opacity: 1; pointer-events: all; }
 
         /* Framework Sections */
-        section { padding: 10rem 4% 6rem 4%; max-width: 1750px; margin: 0 auto; position: relative; }
+        section { padding: 12rem 4% 6rem 4%; max-width: 1750px; margin: 0 auto; position: relative; }
         .section-tag-line { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 4rem; }
         .section-tag { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.45em; color: var(--text-muted); font-weight: 500; }
         .section-line { height: 1px; flex-grow: 1; background: var(--border-color); }
@@ -90,10 +92,10 @@
         /* Hero Brand Frame Canvas */
         .hero-deck { height: 95vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 4%; position: relative; background: var(--bg-deep); }
         .hero-logo-container {
-            max-width: 1100px; width: 90%; margin-bottom: 4.5rem; opacity: 0; transform: translateY(20px);
+            max-width: 900px; width: 85%; margin-bottom: 4.5rem; opacity: 0; transform: translateY(20px);
             animation: revealBrand 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
         }
-        .hero-logo-container img { width: 100%; height: auto; display: block; }
+        .hero-logo-container img { width: 100%; height: auto; display: block; mix-blend-mode: lighten; }
         
         .hero-deck h1 { 
             font-family: var(--font-editorial); font-size: calc(1.3rem + 1.2vw); font-weight: 300; font-style: italic; 
@@ -127,7 +129,7 @@
         .ctrl-btn:hover { color: var(--text-light); }
         .carousel-counter { font-size: 0.68rem; letter-spacing: 0.25em; color: rgba(255,255,255,0.2); font-weight: 400; }
 
-        /* Advanced Data Grid Configuration Controls Layer */
+        /* Filter Control Panel Panel */
         .system-dashboard-control-panel {
             background: rgba(255,255,255,0.01); border: 1px solid var(--border-color);
             padding: 1.5rem 2rem; margin-bottom: 3.5rem; display: flex; flex-wrap: wrap;
@@ -175,7 +177,7 @@
         .card-excerpt { color: var(--text-muted); font-size: 0.88rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6; }
         .no-results { display: none; text-align: center; padding: 8rem 0; font-family: var(--font-editorial); font-size: 1.6rem; color: var(--text-muted); font-style: italic; border: 1px dashed var(--border-color); }
 
-        /* Dynamic Pagination Interface Controls */
+        /* Pagination Interface */
         .pagination-container-deck { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 6rem; padding-top: 3rem; border-top: 1px solid var(--border-color); }
         .pagination-btn { background: none; border: 1px solid var(--border-color); color: var(--text-muted); font-family: var(--font-accent); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; padding: 0.7rem 1.4rem; cursor: pointer; transition: var(--transition-main); min-height: 44px; display: flex; align-items: center; }
         .pagination-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.2); color: var(--text-light); }
@@ -197,7 +199,7 @@
         .matrix-status span { width: 5px; height: 5px; background: #fff; border-radius: 50%; display: inline-block; }
         .matrix-status.pulse span { background: #30d158; animation: microPulse 2s infinite ease-in-out; }
 
-        /* High-End Collective Personnel Directory */
+        /* Collective Personnel Roster */
         .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 4rem 3rem; }
         .roster-card { display: flex; flex-direction: column; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 1.8rem; min-height: 240px; transition: var(--transition-main); }
         .roster-card:hover { border-top-color: rgba(255,255,255,0.25); }
@@ -231,7 +233,7 @@
         .lightbox-close-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: var(--text-light); font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; padding: 0.8rem 1.6rem; cursor: pointer; transition: var(--transition-main); min-height: 44px; }
         .lightbox-close-btn:hover { background: #fff; color: #000; border-color: #fff; }
 
-        /* Global Footer Block */
+        /* Footer */
         footer { padding: 7rem 4% 4rem 4%; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; font-weight: 400; }
         .footer-closing { font-family: var(--font-editorial); font-style: italic; text-transform: none; letter-spacing: 0; color: rgba(255,255,255,0.35); font-size: 0.95rem; }
 
@@ -240,20 +242,31 @@
         @keyframes itemReveal { to { opacity: 1; transform: translateY(0); } }
         @keyframes microPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
         
-        /* 📱 RESPONSIVE MOBILE OPTIMIZATION OVERHAUL CSS */
-        @media (max-width: 1140px) {
-            header { padding: 1.2rem 5%; gap: 1rem; position: absolute; }
+        /* 📱 RESPONSIVE MOBILE OPTIMIZATION CSS */
+        @media (max-width: 1200px) {
+            header { padding: 1.2rem 4%; gap: 1rem; position: absolute; }
             .header-top-row { flex-direction: column; gap: 1.2rem; align-items: flex-start; }
-            .subdomain-routing-deck { width: 100%; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 0.8rem; }
-            .brand-route-node img { height: 9.5px; }
+            
+            /* Responsive Grid Alignment for Large Banner Assets on Phone Viewports */
+            .subdomain-routing-deck { 
+                width: 100%; 
+                display: grid; 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 1rem; 
+                border-bottom: 1px solid rgba(255,255,255,0.03); 
+                padding-bottom: 1rem; 
+            }
+            .brand-route-node { justify-content: center; width: 100%; }
+            .brand-route-node img { height: auto; width: 100%; max-height: 24px; object-fit: contain; }
+            
             .nav-right-cluster { width: 100%; justify-content: space-between; gap: 1rem; }
-            nav { display: none; } /* Kept clean desktop layout links hidden on tiny mobile Viewports */
+            nav { display: none; } 
             .search-container { flex-grow: 1; width: 100%; }
             .search-input { width: 100% !important; }
             
-            main { padding-top: 7rem !important; }
-            section { padding: 6rem 5% 4rem 5%; }
-            .hero-deck { height: auto; min-height: 70vh; padding: 8rem 5% 4rem 5%; }
+            main { padding-top: 9rem !important; }
+            section { padding: 6rem 4% 4rem 4%; }
+            .hero-deck { height: auto; min-height: 65vh; padding: 10rem 4% 4rem 4%; }
             .hero-logo-container { margin-bottom: 2.5rem; }
             
             .carousel-deck { aspect-ratio: 16/10; }
@@ -303,13 +316,13 @@
         <div class="header-top-row">
             <div class="subdomain-routing-deck">
                 <a href="https://tysonmediagroup.org" class="brand-route-node active-core" title="TYSON Media Group Flagship Platform">
-                    <img src="imagestuff/logostuff/mainweblogo.png" alt="TYSON">
+                    <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
                 </a>
                 <a href="https://aviation.tysonmediagroup.org" class="brand-route-node" title="Route to TYSON Aviation Network">
-                    <img src="imagestuff/logostuff/aviationlogo.png" alt="AVIATION">
+                    <img src="imagestuff/TYSONAviationBanner.png" alt="TYSON Aviation">
                 </a>
                 <a href="https://atlantis.tysonmediagroup.org" class="brand-route-node" title="Route to TYSON Atlantis Audio Repository">
-                    <img src="imagestuff/logostuff/atlantislogo.png" alt="ATLANTIS">
+                    <img src="imagestuff/TYSONAtlantisBanner.png" alt="TYSON Atlantis">
                 </a>
             </div>
 
@@ -328,11 +341,11 @@
         </div>
     </header>
 
-    <main style="padding-top: 6.5rem;">
+    <main>
         
         <section class="hero-deck">
             <div class="hero-logo-container">
-                <img src="imagestuff/logostuff/mainweblogo.png" alt="TYSON Media Group">
+                <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
             </div>
             <h1>A multi-divisional production ecosystem focusing on advanced mechanical analysis, custom sound design archives, and aviation media deployment.</h1>
             <div class="scroll-indicator">Initialize Core Interface</div>
@@ -546,7 +559,7 @@
             }, 3000); 
         });
 
-        /* GLOBAL DATABANK FEED REGISTRY [SCALABLE SYSTEM SOURCE] */
+        /* GLOBAL DATABANK FEED REGISTRY */
         const broadcastMasterRegistry = [
             {
                 "id": "tmg-aviation-launch",
@@ -555,7 +568,7 @@
                 "tag": "aviation",
                 "channelName": "@tysonmediagroup-aviation",
                 "issue": "Video Game • Launch Feature",
-                "timestamp": 1780444800, // Programmatic Unix Timestamp Tracking
+                "timestamp": 1780444800, 
                 "excerpt": "Welcome to TYSON Aviation. The official programmatic expansion establishing flight deck documentation, mechanical aerospace design analysis, and airborne cinematic essays.",
                 "featured": true
             },
@@ -616,11 +629,9 @@
             }
         ];
 
-        // System Interface Processing Variables
         let featuredData = [];
         let currentCarouselIndex = 0;
         
-        // RE-ENGINEERED STATE VARIABLES FOR SCALING REGISTRIES
         let activeCategoryFilter = 'all';
         let currentPageIndex = 1;
         let displayLimitPerPage = 6;
@@ -639,7 +650,6 @@
             return `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
         }
 
-        // Lightbox System Logic
         function initLightboxEvents() {
             const lightbox = document.getElementById('videoLightbox');
             document.getElementById('closeLightbox').addEventListener('click', closeLightboxSystem);
@@ -662,7 +672,6 @@
             document.body.style.overflow = '';
         }
 
-        // Spotlights Banner Strip System
         function initCarousel() {
             if(!featuredData.length) return;
             const track = document.getElementById('imageTrack');
@@ -704,15 +713,13 @@
             });
         }
 
-        // --- EXTENDED OPTIMIZED SYSTEM ENGINE LOGIC ---
         function initControlDashboardListeners() {
-            // Live Search Inputs
             const searchInput = document.getElementById('journalSearch');
             const clearBtn = document.getElementById('clearSearchBtn');
 
             searchInput.addEventListener('input', () => {
                 clearBtn.classList.toggle('visible', searchInput.value.length > 0);
-                currentPageIndex = 1; // Reset view states
+                currentPageIndex = 1; 
                 executeRegistryRender();
             });
 
@@ -723,7 +730,6 @@
                 executeRegistryRender();
             });
 
-            // Tab Filters Matrix Setup
             document.querySelectorAll('.matrix-tab').forEach(tab => {
                 tab.addEventListener('click', (e) => {
                     document.querySelectorAll('.matrix-tab').forEach(t => t.classList.remove('active'));
@@ -734,7 +740,6 @@
                 });
             });
 
-            // Select Dropdown Nodes Interactivity
             document.getElementById('sortSelector').addEventListener('change', (e) => {
                 activeSortSequence = e.target.value;
                 executeRegistryRender();
@@ -746,7 +751,6 @@
                 executeRegistryRender();
             });
 
-            // Pagination Controls Triggers
             document.getElementById('prevPageBtn').addEventListener('click', () => {
                 if (currentPageIndex > 1) {
                     currentPageIndex--;
@@ -768,7 +772,6 @@
             const countNode = document.getElementById('resultsCount');
             const searchQuery = document.getElementById('journalSearch').value.toLowerCase().trim();
             
-            // Phase 1: Filter Evaluation
             let processedDataset = broadcastMasterRegistry.filter(item => {
                 const matchesCategory = (activeCategoryFilter === 'all') || (item.tag === activeCategoryFilter);
                 const matchesSearch = item.title.toLowerCase().includes(searchQuery) || 
@@ -778,7 +781,6 @@
                 return matchesCategory && matchesSearch;
             });
 
-            // Phase 2: Algorithmic Sorting Engine Calculations
             if (activeSortSequence === 'newest') {
                 processedDataset.sort((a, b) => b.timestamp - a.timestamp);
             } else if (activeSortSequence === 'oldest') {
@@ -787,7 +789,6 @@
                 processedDataset.sort((a, b) => a.title.localeCompare(b.title));
             }
 
-            // Phase 3: Pagination Core Math Calculations
             const totalMatchingUnits = processedDataset.length;
             const maxCalculatedPages = Math.ceil(totalMatchingUnits / displayLimitPerPage) || 1;
             
@@ -797,7 +798,6 @@
             const sliceEndIndex = sliceStartIndex + displayLimitPerPage;
             const paginatedDatasetSlice = processedDataset.slice(sliceStartIndex, sliceEndIndex);
 
-            // Phase 4: UI Modification Render Loops
             container.innerHTML = '';
             countNode.innerText = `${totalMatchingUnits} entries found • showing page ${currentPageIndex} of ${maxCalculatedPages}`;
 
@@ -810,12 +810,10 @@
             noResults.style.display = 'none';
             document.getElementById('paginationBlock').style.display = totalMatchingUnits > displayLimitPerPage ? 'flex' : 'none';
 
-            // Pagination Visuals Processing
             document.getElementById('paginationTrackerNode').innerText = `Page ${currentPageIndex} of ${maxCalculatedPages}`;
             document.getElementById('prevPageBtn').disabled = (currentPageIndex === 1);
             document.getElementById('nextPageBtn').disabled = (currentPageIndex === maxCalculatedPages);
 
-            // Injecting Dynamic Render Stream Cards
             paginatedDatasetSlice.forEach((item, index) => {
                 const card = document.createElement('div');
                 card.className = 'item-card';
