@@ -620,35 +620,49 @@
     </div>
 
     <script>
-        // Direct, non-encrypted registry to eliminate text-encoding copy/paste failures
+        // Direct Registry (Keys are entirely lowercase to facilitate reliable matches)
         const AUTHORIZATION_REGISTRY = {
-            "tcustine@tysonadmin": "ty!19377460TMG1",
-            "afrench@tyson": "ash!19377460TMG1",
-            "zwiggins@tyson": "zane!19377460TMG1",
-            "bmessersmith@tyson": "brayden!19377460TMG1",
-            "trinebarger@tyson": "triston!19377460TMG1",
-            "jglick@tyson": "jacob!19377460TMGGUEST1"
+            "tcustine@tysonadmin": "ty!19377460tmg1",
+            "afrench@tyson": "ash!19377460tmg1",
+            "zwiggins@tyson": "zane!19377460tmg1",
+            "bmessersmith@tyson": "brayden!19377460tmg1",
+            "trinebarger@tyson": "triston!19377460tmg1",
+            "jglick@tyson": "jacob!19377460tmgguest1"
         };
 
-        // Instant matching function handling cleanup
+        // Aggressive filter handling invisible artifacts from bad data loops
+        function cleanString(str) {
+            if (!str) return '';
+            return str
+                .replace(/[^\x20-\x7E]/g, '') // Strips out all non-printable/control codes entirely
+                .replace(/\s+/g, '')          // Obliterates spaces, trailing layout breaks, tabs
+                .trim()
+                .toLowerCase();               // Forces standard uniform matching layout
+        }
+
         function handleAuthSequence(event) {
             event.preventDefault();
             
-            // Clean out copy-paste hidden artifacts and line breaks
-            const usernameInput = document.getElementById('gateUser').value.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().toLowerCase();
-            const passwordInput = document.getElementById('gatePass').value.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+            // Capture raw input values and route directly into security cleaner module
+            const usernameInput = cleanString(document.getElementById('gateUser').value);
+            const passwordInput = cleanString(document.getElementById('gatePass').value);
             const errorElement = document.getElementById('gateError');
 
             errorElement.classList.remove('visible');
 
-            // Direct mapping logic
+            // Debug Tracer Hooks: Press F12 in-browser to trace execution values if failure triggers
+            console.log("Processed User Vector:", usernameInput);
+            console.log("Processed Password Vector:", passwordInput);
+            console.log("Expected Password Structure:", AUTHORIZATION_REGISTRY[usernameInput]);
+
+            // Authentication verification logic check
             if (AUTHORIZATION_REGISTRY[usernameInput] && AUTHORIZATION_REGISTRY[usernameInput] === passwordInput) {
                 sessionStorage.setItem('tyson_beta_authorized', 'true');
                 revealMainApplicationDeck();
                 return;
             }
 
-            // Fallback fail sequence
+            // Mismatch structural error display routing
             errorElement.innerText = "INVALID IDENTITY CREDENTIAL PATHWAY";
             errorElement.classList.add('visible');
             document.getElementById('gatePass').value = '';
