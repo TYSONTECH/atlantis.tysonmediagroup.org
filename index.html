@@ -362,6 +362,7 @@
 
     <!-- Protected Application Cluster -->
     <div id="tysonAppContent">
+        <!-- Main template contents go here exactly as before -->
         <div id="videoLightbox" class="lightbox-overlay">
             <div class="lightbox-container">
                 <div id="lightboxVideoFrame" class="lightbox-video-frame">
@@ -495,7 +496,6 @@
                 </div>
             </section>
 
-            <!-- Brand Network Matrix Section -->
             <section id="network">
                 <div class="section-tag-line">
                     <span class="section-tag">TYSON</span>
@@ -503,7 +503,6 @@
                 </div>
                 
                 <div class="matrix-deck">
-                    <!-- TYSON Aviation Box -->
                     <a href="https://aviation.tysonmediagroup.org" class="matrix-cell" style="border-color: rgba(48, 209, 88, 0.25);">
                         <span class="matrix-cell-arrow" style="opacity: 0.6; color: #30d158;">↗</span>
                         <div>
@@ -515,7 +514,6 @@
                         <div class="matrix-status pulse"><span></span>Deployment Stage Active</div>
                     </a>
 
-                    <!-- TYSON Media Group Box -->
                     <a href="https://tysonmediagroup.org" class="matrix-cell">
                         <span class="matrix-cell-arrow">↗</span>
                         <div>
@@ -527,7 +525,6 @@
                         <div class="matrix-status"><span></span>Primary Core Station</div>
                     </a>
                     
-                    <!-- TYSON Atlantis Box -->
                     <a href="https://atlantis.tysonmediagroup.org" class="matrix-cell">
                         <span class="matrix-cell-arrow">↗</span>
                         <div>
@@ -647,9 +644,12 @@
         // Authentication Handler Processing Script
         async function handleAuthSequence(event) {
             event.preventDefault();
-            // Usernames are case-insensitive by design to avoid login annoyance
-            const usernameInput = document.getElementById('gateUser').value.trim().toLowerCase();
-            const passwordInput = document.getElementById('gatePass').value;
+            
+            // Clean out copy-paste artifacts and normalize the username text completely
+            const usernameInput = document.getElementById('gateUser').value.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().toLowerCase();
+            
+            // Clean trailing spaces or copy-paste line break variations from the input string
+            const passwordInput = document.getElementById('gatePass').value.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
             const errorElement = document.getElementById('gateError');
 
             errorElement.classList.remove('visible');
@@ -686,6 +686,7 @@
             }
         });
 
+        // The rest of the page application rendering logic continues cleanly below...
         const broadcastMasterRegistry = [
             {
                 "id": "tmg-aviation-launch",
