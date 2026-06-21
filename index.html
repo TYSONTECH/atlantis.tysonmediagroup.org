@@ -30,7 +30,52 @@
             font-family: var(--font-accent); font-weight: 200; line-height: 1.65; overflow-x: hidden;
             letter-spacing: -0.01em; -webkit-font-smoothing: antialiased;
         }
-        body.intro-active { overflow: hidden; height: 100vh; }
+        
+        /* Beta Gate Overlay Styles */
+        #betaGateOverlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-black); z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 2rem; opacity: 1; transition: opacity 0.6s ease;
+        }
+        .gate-container {
+            width: 100%; max-width: 480px; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 2rem;
+        }
+        .gate-brand-image {
+            width: 100%; max-width: 420px; height: auto; display: block;
+            mix-blend-mode: lighten; filter: brightness(0.95); margin-bottom: 0.5rem;
+        }
+        .gate-form {
+            width: 100%; display: flex; flex-direction: column; gap: 1rem;
+        }
+        .gate-input-group {
+            position: relative; width: 100%;
+        }
+        .gate-input {
+            width: 100%; background: rgba(0,0,0,0.6); border: 1px solid var(--border-color);
+            color: var(--text-light); font-family: var(--font-accent); font-size: 0.85rem; font-weight: 300;
+            padding: 0.9rem 1.2rem; border-radius: 4px; letter-spacing: 0.05em; transition: var(--transition-main);
+        }
+        .gate-input:focus { outline: none; border-color: rgba(255,255,255,0.25); background: rgba(0,0,0,0.8); }
+        .gate-submit-btn {
+            width: 100%; background: none; border: 1px solid rgba(255,255,255,0.15); color: var(--text-light);
+            font-family: var(--font-accent); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+            padding: 1rem; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 0.5rem;
+            transition: var(--transition-main);
+        }
+        .gate-submit-btn:hover { background: #fff; color: #000; border-color: #fff; }
+        .gate-error-msg {
+            color: #ff453a; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.02em;
+            min-height: 18px; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .gate-error-msg.visible { opacity: 1; }
+        .gate-footer-tag {
+            font-family: var(--font-editorial); font-style: italic; color: rgba(255,255,255,0.2); font-size: 0.85rem; margin-top: 1rem;
+        }
+
+        /* Content Visibility Control */
+        #tysonAppContent { display: none; }
 
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.022; pointer-events: none; z-index: 9999;
@@ -271,268 +316,352 @@
 </head>
 <body>
 
-    <div id="videoLightbox" class="lightbox-overlay">
-        <div class="lightbox-container">
-            <div id="lightboxVideoFrame" class="lightbox-video-frame">
-                <iframe id="lightboxIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <div id="lightboxArticleView" class="lightbox-article-view">
-                <div id="lightboxArticleBody" class="lightbox-article-body"></div>
-            </div>
-            <div class="lightbox-meta-footer">
-                <div class="lightbox-title-stack">
-                    <h3 id="lightboxTitle" class="lightbox-title">Transmission</h3>
-                    <p id="lightboxDesc" class="lightbox-desc"></p>
+    <!-- Immersive Beta Authorization Interface -->
+    <div id="betaGateOverlay">
+        <div class="gate-container">
+            <img src="imagestuff/Untitled(2).png" alt="TYSON Core Asset" class="gate-brand-image">
+            <form class="gate-form" id="betaGateForm" onsubmit="handleAuthSequence(event)">
+                <div class="gate-input-group">
+                    <input type="text" id="gateUser" class="gate-input" placeholder="ACCESS IDENTITY" required autocomplete="username">
                 </div>
-                <button id="closeLightbox" class="lightbox-close-btn">Close Frame</button>
-            </div>
+                <div class="gate-input-group">
+                    <input type="password" id="gatePass" class="gate-input" placeholder="PASSKEY VECTOR" required autocomplete="current-password">
+                </div>
+                <div id="gateError" class="gate-error-msg"></div>
+                <button type="submit" class="gate-submit-btn">Authorize Node</button>
+            </form>
+            <div class="gate-footer-tag">Stillness in motion.</div>
         </div>
     </div>
 
-    <header>
-        <div class="header-top-row">
-            <div class="subdomain-routing-deck">
-                <a href="https://tysonmediagroup.org" class="brand-route-node active-core" title="TYSON Media Group Platform">
-                    <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
-                </a>
-                <a href="https://aviation.tysonmediagroup.org" class="brand-route-node" title="Route to TYSON Aviation Network">
-                    <img src="imagestuff/TYSONAviationBanner.png" alt="TYSON Aviation">
-                </a>
-                <a href="https://atlantis.tysonmediagroup.org" class="brand-route-node" title="Route to TYSON Atlantis Audio Repository">
-                    <img src="imagestuff/TYSONAtlantisBanner.png" alt="TYSON Atlantis">
-                </a>
-            </div>
-
-            <div class="nav-right-cluster">
-                <nav>
-                    <a href="#broadcast">Featured</a>
-                    <a href="#journal">Registry</a>
-                    <a href="#network">TYSON</a>
-                    <a href="#collective">The TYSON Team</a>
-                </nav>
+    <!-- Protected Application Cluster -->
+    <div id="tysonAppContent">
+        <div id="videoLightbox" class="lightbox-overlay">
+            <div class="lightbox-container">
+                <div id="lightboxVideoFrame" class="lightbox-video-frame">
+                    <iframe id="lightboxIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div id="lightboxArticleView" class="lightbox-article-view">
+                    <div id="lightboxArticleBody" class="lightbox-article-body"></div>
+                </div>
+                <div class="lightbox-meta-footer">
+                    <div class="lightbox-title-stack">
+                        <h3 id="lightboxTitle" class="lightbox-title">Transmission</h3>
+                        <p id="lightboxDesc" class="lightbox-desc"></p>
+                    </div>
+                    <button id="closeLightbox" class="lightbox-close-btn">Close Frame</button>
+                </div>
             </div>
         </div>
-    </header>
 
-    <main>
-        <section class="hero-deck">
-            <div class="hero-logo-container">
-                <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
-            </div>
-            <h1>Stillness in motion.</h1>
-            <div class="scroll-indicator">Explore Featured Work</div>
-        </section>
+        <header>
+            <div class="header-top-row">
+                <div class="subdomain-routing-deck">
+                    <a href="https://tysonmediagroup.org" class="brand-route-node active-core" title="TYSON Media Group Platform">
+                        <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
+                    </a>
+                    <a href="https://aviation.tysonmediagroup.org" class="brand-route-node" title="Route to TYSON Aviation Network">
+                        <img src="imagestuff/TYSONAviationBanner.png" alt="TYSON Aviation">
+                    </a>
+                    <a href="https://atlantis.tysonmediagroup.org" class="brand-route-node" title="Route to TYSON Atlantis Audio Repository">
+                        <img src="imagestuff/TYSONAtlantisBanner.png" alt="TYSON Atlantis">
+                    </a>
+                </div>
 
-        <section id="broadcast" class="broadcast-hub" style="padding-top: 4rem;">
-            <div class="section-tag-line">
-                <span class="section-tag" style="color: #30d158;">★ Spotlight Features</span>
-                <div class="section-line" style="background: rgba(48, 209, 88, 0.15);"></div>
+                <div class="nav-right-cluster">
+                    <nav>
+                        <a href="#broadcast">Featured</a>
+                        <a href="#journal">Registry</a>
+                        <a href="#network">TYSON</a>
+                        <a href="#collective">The TYSON Team</a>
+                    </nav>
+                </div>
             </div>
-            
-            <div class="carousel-deck">
-                <div class="carousel-visual-pane" id="imageTrack"></div>
-                <div class="carousel-content-overlay">
-                    <div class="carousel-text-box">
-                        <div id="carouselMeta" style="font-size: 0.72rem; text-transform: none; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.8rem; font-weight:500;"></div>
-                        <h2 id="carouselTitle" class="carousel-title"></h2>
-                        <p id="carouselExcerpt" class="carousel-excerpt"></p>
+        </header>
+
+        <main>
+            <section class="hero-deck">
+                <div class="hero-logo-container">
+                    <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
+                </div>
+                <h1>Stillness in motion.</h1>
+                <div class="scroll-indicator">Explore Featured Work</div>
+            </section>
+
+            <section id="broadcast" class="broadcast-hub" style="padding-top: 4rem;">
+                <div class="section-tag-line">
+                    <span class="section-tag" style="color: #30d158;">★ Spotlight Features</span>
+                    <div class="section-line" style="background: rgba(48, 209, 88, 0.15);"></div>
+                </div>
+                
+                <div class="carousel-deck">
+                    <div class="carousel-visual-pane" id="imageTrack"></div>
+                    <div class="carousel-content-overlay">
+                        <div class="carousel-text-box">
+                            <div id="carouselMeta" style="font-size: 0.72rem; text-transform: none; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.8rem; font-weight:500;"></div>
+                            <h2 id="carouselTitle" class="carousel-title"></h2>
+                            <p id="carouselExcerpt" class="carousel-excerpt"></p>
+                        </div>
+                        
+                        <div class="carousel-nav-interface">
+                            <span id="carouselLink" class="carousel-link">Open Content →</span>
+                            <div class="carousel-controls">
+                                <button class="ctrl-btn" id="prevBtn">←</button>
+                                <span class="carousel-counter" id="carouselCounter">01 / 01</span>
+                                <button class="ctrl-btn" id="nextBtn">→</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="journal" style="padding-top: 2rem;">
+                <div class="section-tag-line">
+                    <span class="section-tag">Resource Directory</span>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="system-dashboard-control-panel">
+                    <div class="catalog-matrix-controls">
+                        <button class="matrix-tab active" data-category="all">All Feeds</button>
+                        <button class="matrix-tab" data-category="aviation">TYSON Aviation</button>
+                        <button class="matrix-tab" data-category="flagship">TYSON Media Group</button>
+                        <button class="matrix-tab" data-category="atlantis">TYSON Atlantis</button>
                     </div>
                     
-                    <div class="carousel-nav-interface">
-                        <span id="carouselLink" class="carousel-link">Open Content →</span>
-                        <div class="carousel-controls">
-                            <button class="ctrl-btn" id="prevBtn">←</button>
-                            <span class="carousel-counter" id="carouselCounter">01 / 01</span>
-                            <button class="ctrl-btn" id="nextBtn">→</button>
+                    <div class="dashboard-filtering-options-node">
+                        <div class="search-container">
+                            <input type="text" id="journalSearch" class="search-input" placeholder="Search articles and media...">
+                            <button id="clearSearchBtn" class="search-clear-btn" title="Clear search values">×</button>
+                        </div>
+
+                        <div class="selector-label-group">
+                            <label for="sortSelector">Sort Sequence:</label>
+                            <select id="sortSelector" class="interactive-dropdown-node">
+                                <option value="newest" selected>Release: Newest First</option>
+                                <option value="oldest">Release: Oldest First</option>
+                                <option value="alpha">Alphanumeric: A - Z</option>
+                            </select>
+                        </div>
+
+                        <div class="selector-label-group">
+                            <label for="limitSelector">Density:</label>
+                            <select id="limitSelector" class="interactive-dropdown-node">
+                                <option value="6" selected>6 per page</option>
+                                <option value="12">12 per page</option>
+                                <option value="24">24 per page</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="journal" style="padding-top: 2rem;">
-            <div class="section-tag-line">
-                <span class="section-tag">Resource Directory</span>
-                <div class="section-line"></div>
-            </div>
-
-            <div class="system-dashboard-control-panel">
-                <div class="catalog-matrix-controls">
-                    <button class="matrix-tab active" data-category="all">All Feeds</button>
-                    <button class="matrix-tab" data-category="aviation">TYSON Aviation</button>
-                    <button class="matrix-tab" data-category="flagship">TYSON Media Group</button>
-                    <button class="matrix-tab" data-category="atlantis">TYSON Atlantis</button>
                 </div>
                 
-                <div class="dashboard-filtering-options-node">
-                    <div class="search-container">
-                        <input type="text" id="journalSearch" class="search-input" placeholder="Search articles and media...">
-                        <button id="clearSearchBtn" class="search-clear-btn" title="Clear search values">×</button>
-                    </div>
-
-                    <div class="selector-label-group">
-                        <label for="sortSelector">Sort Sequence:</label>
-                        <select id="sortSelector" class="interactive-dropdown-node">
-                            <option value="newest" selected>Release: Newest First</option>
-                            <option value="oldest">Release: Oldest First</option>
-                            <option value="alpha">Alphanumeric: A - Z</option>
-                        </select>
-                    </div>
-
-                    <div class="selector-label-group">
-                        <label for="limitSelector">Density:</label>
-                        <select id="limitSelector" class="interactive-dropdown-node">
-                            <option value="6" selected>6 per page</option>
-                            <option value="12">12 per page</option>
-                            <option value="24">24 per page</option>
-                        </select>
-                    </div>
+                <div class="catalog-header-meta">
+                    <span id="resultsCount" class="results-counter-node">0 entries cataloged</span>
                 </div>
-            </div>
-            
-            <div class="catalog-header-meta">
-                <span id="resultsCount" class="results-counter-node">0 entries cataloged</span>
-            </div>
-            
-            <div id="gridContainer" class="grid-container"></div>
-            <div id="noResults" class="no-results">No active entries match selected layout parameters.</div>
-
-            <div class="pagination-container-deck" id="paginationBlock">
-                <button class="pagination-btn" id="prevPageBtn">← Previous Page</button>
-                <span class="pagination-tracker-label" id="paginationTrackerNode">Page 1 of 1</span>
-                <button class="pagination-btn" id="nextPageBtn">Next Page →</button>
-            </div>
-        </section>
-
-        <!-- Brand Network Matrix Section -->
-        <section id="network">
-            <div class="section-tag-line">
-                <span class="section-tag">TYSON</span>
-                <div class="section-line"></div>
-            </div>
-            
-            <div class="matrix-deck">
-                <!-- TYSON Aviation Box -->
-                <a href="https://aviation.tysonmediagroup.org" class="matrix-cell" style="border-color: rgba(48, 209, 88, 0.25);">
-                    <span class="matrix-cell-arrow" style="opacity: 0.6; color: #30d158;">↗</span>
-                    <div>
-                        <div class="matrix-brand-banner-wrap">
-                            <img src="imagestuff/TYSONAviationBanner.png" alt="TYSON Aviation">
-                        </div>
-                        <p>Mainly YouTube content centered around Microsoft Flight Simulator and VATSIM networks. Featuring smooth, long flights perfect for sleep, delivered with an overall pleasing and relaxed aesthetic.</p>
-                    </div>
-                    <div class="matrix-status pulse"><span></span>Deployment Stage Active</div>
-                </a>
-
-                <!-- TYSON Media Group Box -->
-                <a href="https://tysonmediagroup.org" class="matrix-cell">
-                    <span class="matrix-cell-arrow">↗</span>
-                    <div>
-                        <div class="matrix-brand-banner-wrap">
-                            <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
-                        </div>
-                        <p>The core overarching parent organization behind the network, serving as the main corporate house for automotive productions—the fundamental focus of the TYSON identity.</p>
-                    </div>
-                    <div class="matrix-status"><span></span>Primary Core Station</div>
-                </a>
                 
-                <!-- TYSON Atlantis Box -->
-                <a href="https://atlantis.tysonmediagroup.org" class="matrix-cell">
-                    <span class="matrix-cell-arrow">↗</span>
-                    <div>
-                        <div class="matrix-brand-banner-wrap">
-                            <img src="imagestuff/TYSONAtlantisBanner.png" alt="TYSON Atlantis">
-                        </div>
-                        <p>A dedicated audio playground producing custom music tracks. Sped up, tuned, slowed, and pitched to absolute perfection—crafted and delivered with love from TYSON.</p>
-                    </div>
-                    <div class="matrix-status"><span></span>Acoustic Sub-Station</div>
-                </a>
-            </div>
-        </section>
+                <div id="gridContainer" class="grid-container"></div>
+                <div id="noResults" class="no-results">No active entries match selected layout parameters.</div>
 
-        <section id="collective" style="padding-bottom: 10rem;">
-            <div class="section-tag-line">
-                <span class="section-tag">The TYSON Team</span>
-                <div class="section-line"></div>
-            </div>
-            
-            <div class="roster-grid">
-                <div class="roster-card">
-                    <div class="roster-header">
-                        <div class="roster-identity-stack">
-                            <span class="roster-name">Tyler</span>
-                            <span class="roster-pronoun">Pronouns: He / Him</span>
-                            <span class="roster-role">Founder & Director</span>
-                        </div>
-                        <a href="https://www.youtube.com/@T-Custard-26" target="_blank" class="youtube-icon-wrapper" title="T-Custard-26 Channel">
-                            <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        </a>
-                    </div>
-                    <p class="roster-bio">The foundational design and direction force of TYSON Media Group. Manages primary channel operations alongside his creative sandbox channel, T-Custard-26.</p>
+                <div class="pagination-container-deck" id="paginationBlock">
+                    <button class="pagination-btn" id="prevPageBtn">← Previous Page</button>
+                    <span class="pagination-tracker-label" id="paginationTrackerNode">Page 1 of 1</span>
+                    <button class="pagination-btn" id="nextPageBtn">Next Page →</button>
                 </div>
+            </section>
 
-                <div class="roster-card">
-                    <div class="roster-header">
-                        <div class="roster-identity-stack">
-                            <span class="roster-name">Ash</span>
-                            <span class="roster-pronoun">Pronouns: They / Them</span>
-                            <span class="roster-role">Co-Director</span>
-                        </div>
-                        <a href="https://www.youtube.com/@THE-BlurrySyrup" target="_blank" class="youtube-icon-wrapper" title="THE-BlurrySyrup Channel">
-                            <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        </a>
-                    </div>
-                    <p class="roster-bio">Oversees tactical operations and operational formatting. Delivers the essential structural stabilization and mature guidance required to organize the network's long-term timeline.</p>
+            <!-- Brand Network Matrix Section -->
+            <section id="network">
+                <div class="section-tag-line">
+                    <span class="section-tag">TYSON</span>
+                    <div class="section-line"></div>
                 </div>
-
-                <div class="roster-card">
-                    <div class="roster-header">
-                        <div class="roster-identity-stack">
-                            <span class="roster-name">Brayden</span>
-                            <span class="roster-pronoun">Pronouns: He / Him</span>
-                            <span class="roster-role">Creative Director</span>
+                
+                <div class="matrix-deck">
+                    <!-- TYSON Aviation Box -->
+                    <a href="https://aviation.tysonmediagroup.org" class="matrix-cell" style="border-color: rgba(48, 209, 88, 0.25);">
+                        <span class="matrix-cell-arrow" style="opacity: 0.6; color: #30d158;">↗</span>
+                        <div>
+                            <div class="matrix-brand-banner-wrap">
+                                <img src="imagestuff/TYSONAviationBanner.png" alt="TYSON Aviation">
+                            </div>
+                            <p>Mainly YouTube content centered around Microsoft Flight Simulator and VATSIM networks. Featuring smooth, long flights perfect for sleep, delivered with an overall pleasing and relaxed aesthetic.</p>
                         </div>
-                    </div>
-                    <p class="roster-bio">Maintains aesthetic balance across production tracks. Specializes in anchoring core experimental engineering scripts to reality while optimizing system execution parameters.</p>
-                </div>
+                        <div class="matrix-status pulse"><span></span>Deployment Stage Active</div>
+                    </a>
 
-                <div class="roster-card">
-                    <div class="roster-header">
-                        <div class="roster-identity-stack">
-                            <span class="roster-name">Triston</span>
-                            <span class="roster-pronoun">Pronouns: He / Him</span>
-                            <span class="roster-role">VR Content Lead</span>
+                    <!-- TYSON Media Group Box -->
+                    <a href="https://tysonmediagroup.org" class="matrix-cell">
+                        <span class="matrix-cell-arrow">↗</span>
+                        <div>
+                            <div class="matrix-brand-banner-wrap">
+                                <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
+                            </div>
+                            <p>The core overarching parent organization behind the network, serving as the main corporate house for automotive productions—the fundamental focus of the TYSON identity.</p>
                         </div>
-                        <a href="https://www.youtube.com/@bubbavrgt1" target="_blank" class="youtube-icon-wrapper" title="BubbaVRGT1 Channel">
-                            <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        </a>
-                    </div>
-                    <p class="roster-bio">Commands spatial capture processes across platforms. Constructs high-density, immersive POV virtual reality arrays designed for spatial simulation tracks.</p>
-                </div>
-
-                <div class="roster-card">
-                    <div class="roster-header">
-                        <div class="roster-identity-stack">
-                            <span class="roster-name">Zane</span>
-                            <span class="roster-pronoun">Pronouns: He / Him</span>
-                            <span class="roster-role">Aviation Content Lead</span>
+                        <div class="matrix-status"><span></span>Primary Core Station</div>
+                    </a>
+                    
+                    <!-- TYSON Atlantis Box -->
+                    <a href="https://atlantis.tysonmediagroup.org" class="matrix-cell">
+                        <span class="matrix-cell-arrow">↗</span>
+                        <div>
+                            <div class="matrix-brand-banner-wrap">
+                                <img src="imagestuff/TYSONAtlantisBanner.png" alt="TYSON Atlantis">
+                            </div>
+                            <p>A dedicated audio playground producing custom music tracks. Sped up, tuned, slowed, and pitched to absolute perfection—crafted and delivered with love from TYSON.</p>
                         </div>
-                        <a href="https://www.youtube.com/@AwesomeZ05/featured" target="_blank" class="youtube-icon-wrapper" title="AwesomeZ05 Channel">
-                            <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        </a>
-                    </div>
-                    <p class="roster-bio">Directs incoming aerodynamic research and production structures. Sets system specifications for the deployment of the upcoming TYSON Aviation program channel matrix.</p>
+                        <div class="matrix-status"><span></span>Acoustic Sub-Station</div>
+                    </a>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <footer>
-        <p>&copy; 2026 TYSON Media Group.</p>
-        <p class="footer-closing">Stillness in motion.</p>
-    </footer>
+            <section id="collective" style="padding-bottom: 10rem;">
+                <div class="section-tag-line">
+                    <span class="section-tag">The TYSON Team</span>
+                    <div class="section-line"></div>
+                </div>
+                
+                <div class="roster-grid">
+                    <div class="roster-card">
+                        <div class="roster-header">
+                            <div class="roster-identity-stack">
+                                <span class="roster-name">Tyler</span>
+                                <span class="roster-pronoun">Pronouns: He / Him</span>
+                                <span class="roster-role">Founder & Director</span>
+                            </div>
+                            <a href="https://www.youtube.com/@T-Custard-26" target="_blank" class="youtube-icon-wrapper" title="T-Custard-26 Channel">
+                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            </a>
+                        </div>
+                        <p class="roster-bio">The foundational design and direction force of TYSON Media Group. Manages primary channel operations alongside his creative sandbox channel, T-Custard-26.</p>
+                    </div>
+
+                    <div class="roster-card">
+                        <div class="roster-header">
+                            <div class="roster-identity-stack">
+                                <span class="roster-name">Ash</span>
+                                <span class="roster-pronoun">Pronouns: They / Them</span>
+                                <span class="roster-role">Co-Director</span>
+                            </div>
+                            <a href="https://www.youtube.com/@THE-BlurrySyrup" target="_blank" class="youtube-icon-wrapper" title="THE-BlurrySyrup Channel">
+                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            </a>
+                        </div>
+                        <p class="roster-bio">Oversees tactical operations and operational formatting. Delivers the essential structural stabilization and mature guidance required to organize the network's long-term timeline.</p>
+                    </div>
+
+                    <div class="roster-card">
+                        <div class="roster-header">
+                            <div class="roster-identity-stack">
+                                <span class="roster-name">Brayden</span>
+                                <span class="roster-pronoun">Pronouns: He / Him</span>
+                                <span class="roster-role">Creative Director</span>
+                            </div>
+                        </div>
+                        <p class="roster-bio">Maintains aesthetic balance across production tracks. Specializes in anchoring core experimental engineering scripts to reality while optimizing system execution parameters.</p>
+                    </div>
+
+                    <div class="roster-card">
+                        <div class="roster-header">
+                            <div class="roster-identity-stack">
+                                <span class="roster-name">Triston</span>
+                                <span class="roster-pronoun">Pronouns: He / Him</span>
+                                <span class="roster-role">VR Content Lead</span>
+                            </div>
+                            <a href="https://www.youtube.com/@bubbavrgt1" target="_blank" class="youtube-icon-wrapper" title="BubbaVRGT1 Channel">
+                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            </a>
+                        </div>
+                        <p class="roster-bio">Commands spatial capture processes across platforms. Constructs high-density, immersive POV virtual reality arrays designed for spatial simulation tracks.</p>
+                    </div>
+
+                    <div class="roster-card">
+                        <div class="roster-header">
+                            <div class="roster-identity-stack">
+                                <span class="roster-name">Zane</span>
+                                <span class="roster-pronoun">Pronouns: He / Him</span>
+                                <span class="roster-role">Aviation Content Lead</span>
+                            </div>
+                            <a href="https://www.youtube.com/@AwesomeZ05/featured" target="_blank" class="youtube-icon-wrapper" title="AwesomeZ05 Channel">
+                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            </a>
+                        </div>
+                        <p class="roster-bio">Directs incoming aerodynamic research and production structures. Sets system specifications for the deployment of the upcoming TYSON Aviation program channel matrix.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 TYSON Media Group.</p>
+            <p class="footer-closing">Stillness in motion.</p>
+        </footer>
+    </div>
 
     <script>
+        // Pre-calculated cryptographic hex hashes of your usernames and passwords for production isolation
+        const AUTHORIZATION_REGISTRY = {
+            "tcustine@tysonadmin": "5959f63fa0d481dae1864cc28b2be94191d4e0e5631bfa59d640b8ee78709f6e", // ty!19377460TMG1
+            "afrench@tyson": "c3bc27248d6ca7fb85b3bc9142e0ae480a406697b09be8cf6ee90eb87dbb5490",       // ash!19377460TMG1
+            "zwiggins@tyson": "d748f522301140026e48c3b17cb1eb9ff8ca3c7efb06d8a57be33c94f1b4020a",     // zane!19377460TMG1
+            "bmessersmith@tyson": "dfdf0b59b566580556da87e6fa5a0139158c56fa7f75eb7f72230e71fbaea03b", // brayden!19377460TMG1
+            "trinebarger@tyson": "47be73081beeb4f391fa16db614f85e4922f51f501bca053c9e9009dfbd96ff8",  // triston!19377460TMG1
+            "jglick@tyson": "3bc24ea33575da70a59b20755a909a341b3dfbfdafaec243e3f434778be1a27e"        // jacob!19377460TMGGUEST1
+        };
+
+        // Standard SHA-256 Utility Function to process passwords natively
+        async function calculateStringHashValue(rawString) {
+            const encoder = new TextEncoder();
+            const rawBuffer = encoder.encode(rawString);
+            const hashedBuffer = await crypto.subtle.digest('SHA-256', rawBuffer);
+            const byteArray = Array.from(new Uint8Array(hashedBuffer));
+            return byteArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Verification Process Engine
+        async function handleAuthSequence(event) {
+            event.preventDefault();
+            const usernameInput = document.getElementById('gateUser').value.trim().toLowerCase();
+            const passwordInput = document.getElementById('gatePass').value;
+            const errorElement = document.getElementById('gateError');
+
+            errorElement.classList.remove('visible');
+
+            if (AUTHORIZATION_REGISTRY[usernameInput]) {
+                const computedPassHash = await calculateStringHashValue(passwordInput);
+                if (computedPassHash === AUTHORIZATION_REGISTRY[usernameInput]) {
+                    // Correct authentication combo provided
+                    sessionStorage.setItem('tyson_beta_authorized', 'true');
+                    revealMainApplicationDeck();
+                    return;
+                }
+            }
+
+            // Fallback case for invalid access matching
+            errorElement.innerText = "INVALID IDENTITY CREDENTIAL PATHWAY";
+            errorElement.classList.add('visible');
+            document.getElementById('gatePass').value = '';
+        }
+
+        function revealMainApplicationDeck() {
+            document.getElementById('betaGateOverlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('betaGateOverlay').style.display = 'none';
+                document.getElementById('tysonAppContent').style.display = 'block';
+                // Trigger application scripts initialization sequence safely
+                initGlobalEcosystem();
+            }, 600);
+        }
+
+        // On-load gate check lifecycle hook
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('tyson_beta_authorized') === 'true') {
+                document.getElementById('betaGateOverlay').style.display = 'none';
+                document.getElementById('tysonAppContent').style.display = 'block';
+                initGlobalEcosystem();
+            }
+        });
+
         const broadcastMasterRegistry = [
             {
                 "id": "tmg-aviation-launch",
@@ -837,8 +966,6 @@
                 container.appendChild(card);
             });
         }
-
-        window.addEventListener('DOMContentLoaded', initGlobalEcosystem);
     </script>
 </body>
 </html>
