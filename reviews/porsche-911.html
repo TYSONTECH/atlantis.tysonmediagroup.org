@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porsche 911 (964) Review | Tyson Media Group</title>
+    <title>Porsche 911 (964) Review | TYSON Media Group</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,11 +21,8 @@
         }
 
         body { 
-            background-color: var(--bg-black); 
-            color: var(--text-light); 
-            font-family: var(--font-accent); 
-            font-weight: 200; 
-            line-height: 1.8; 
+            background-color: var(--bg-black); color: var(--text-light); 
+            font-family: var(--font-accent); font-weight: 200; line-height: 1.8; 
         }
         
         body::before {
@@ -33,12 +30,11 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        header { position: absolute; top: 0; left: 0; width: 100%; padding: 2.5rem 4%; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
-        .nav-logo img { height: 28px; width: auto; opacity: 0.9; }
+        header { position: absolute; top: 0; left: 0; width: 100%; padding: 2.2rem 4%; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+        .nav-logo img { height: 14px; width: auto; opacity: 0.85; display: block; }
         .back-btn { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; transition: color 0.3s; }
         .back-btn:hover { color: var(--text-light); }
 
-        /* Cover Visual Wrapper */
         .article-hero { height: 75vh; width: 100%; position: relative; display: flex; align-items: flex-end; padding: 5rem 10%; overflow: hidden; }
         .article-hero-bg { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; opacity: 0.35; filter: grayscale(25%); z-index: -1; }
         .article-hero::after { content: ''; position: absolute; bottom:0; left:0; width:100%; height:70%; background: linear-gradient(to top, var(--bg-black), transparent); z-index: -1; }
@@ -47,23 +43,17 @@
         .article-meta { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-muted); margin-bottom: 1.2rem; }
         .hero-title-area h1 { font-family: var(--font-editorial); font-size: calc(2.2rem + 2vw); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
         
-        /* Two Column Layout */
         .article-body { max-width: 1300px; margin: 0 auto; padding: 5rem 10% 9rem 10%; display: grid; grid-template-columns: 2.4fr 1fr; gap: 6rem; }
         
-        /* Editorial Copy Treatments */
         .article-text p { font-family: var(--font-editorial); font-size: 1.35rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; font-weight: 300; }
-        
-        /* Exquisite Large Initial Dropcap */
         .article-text p::first-letter { font-size: 4.5rem; font-family: var(--font-editorial); float: left; margin-right: 0.8rem; line-height: 0.9; font-weight: 400; color: var(--text-light); }
         .article-text p + p::first-letter { font-size: inherit; float: none; margin-right: 0; line-height: inherit; font-weight: inherit; color: inherit; }
         
         .article-text h2 { font-family: var(--font-editorial); font-size: 2.1rem; font-weight: 400; margin: 4rem 0 1.8rem 0; letter-spacing: -0.01em; }
         
-        /* Narrative Inline Assets */
         .inline-photo { width: 100%; aspect-ratio: 16/9; background: #070708; margin: 4rem 0; overflow: hidden; border: 1px solid rgba(255,255,255,0.01); }
         .inline-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
 
-        /* Spec Panel */
         .spec-sidebar { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.02); padding: 2.2rem; height: fit-content; position: sticky; top: 7rem; }
         .spec-sidebar h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 1.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.04); font-weight: 400; }
         .spec-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.02); letter-spacing: 0.02em; }
@@ -78,7 +68,7 @@
 
     <header>
         <div class="nav-logo">
-            <img src="https://i.ibb.co/FLzz859x/tysoniconofficialpng.png" alt="TMG Icon">
+            <img src="../imagestuff/logostuff/mainweblogo.png" alt="TYSON">
         </div>
         <a href="../index.html" class="back-btn">← Back to Journal</a>
     </header>
@@ -93,10 +83,8 @@
         </section>
 
         <div class="article-body">
-            
             <article class="article-text">
                 <p>The air-cooled Porsche 911 type 964 represents a pivotal threshold in automotive history—a vehicle suspended perfectly between mechanical purity and modern refinement. Stepping inside the cabin feels less like stepping into a sports car and more like occupying an empty architectural monument at twilight.</p>
-                
                 <p>On the tarmac, the steering transmits a textural dialogue directly to your hands. Every imperfection, crack, and shift in the road surface is cataloged with surgical clarity. The flat-six engine behind you doesn't scream; it drones a mechanical baritone that fills the empty space around you.</p>
 
                 <div class="inline-photo">
@@ -130,12 +118,11 @@
                     <span class="spec-value">Rear-Engine, RWD</span>
                 </div>
             </aside>
-
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Tyson Media Group.</p>
+        <p>&copy; 2026 TYSON Media Group.</p>
         <p>Stillness in Motion.</p>
     </footer>
 
