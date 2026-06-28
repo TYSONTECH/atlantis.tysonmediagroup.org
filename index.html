@@ -209,7 +209,7 @@
         .yt-svg-node { width: 22px; height: 22px; fill: currentColor; display: block; }
         .roster-bio { font-size: 1rem; color: #e5e5e7; font-weight: 400; line-height: 1.6; margin-bottom: auto; }
 
-        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vw; background: rgba(0,0,0,0.98); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.98); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
         .lightbox-overlay.active { opacity: 1; pointer-events: all; }
         
         .lightbox-container { width: 92%; max-width: 1200px; display: flex; flex-direction: column; gap: 2rem; transform: scale(0.98); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -217,11 +217,6 @@
         
         .lightbox-video-frame { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid var(--border-color); position: relative; display: none; }
         .lightbox-video-frame iframe { width: 100%; height: 100%; border: none; display: block; }
-        
-        .lightbox-article-view { width: 100%; max-height: 65vh; overflow-y: auto; background: #000000; border: 1px solid var(--border-color); padding: 4rem; display: none; border-radius: 4px; }
-        .lightbox-article-body { font-family: var(--font-editorial); font-size: 1.5rem; font-weight: 300; line-height: 1.75; color: #e5e5e7; }
-        .lightbox-article-body p { margin-bottom: 2.5rem; }
-        .lightbox-article-body h2 { font-size: 2.4rem; font-weight: 300; font-style: italic; margin: 3.5rem 0 1.8rem 0; color: #fff; }
         
         .lightbox-meta-footer { display: flex; justify-content: space-between; align-items: flex-start; border-top: 1px solid var(--border-color); padding-top: 2rem; }
         .lightbox-title-stack { max-width: 75%; }
@@ -312,7 +307,6 @@
             .interactive-dropdown-node { width: 100%; }
 
             .grid-container { grid-template-columns: 1fr; gap: 4.5rem; }
-            .lightbox-article-view { padding: 2rem; }
             .matrix-deck { grid-template-columns: 1fr; gap: 2rem; }
             .lightbox-meta-footer { flex-direction: column; gap: 2rem; }
             .lightbox-title-stack { max-width: 100%; }
@@ -331,9 +325,6 @@
             <div class="lightbox-container">
                 <div id="lightboxVideoFrame" class="lightbox-video-frame">
                     <iframe id="lightboxIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-                <div id="lightboxArticleView" class="lightbox-article-view">
-                    <div id="lightboxArticleBody" class="lightbox-article-body"></div>
                 </div>
                 <div class="lightbox-meta-footer">
                     <div class="lightbox-title-stack">
@@ -520,7 +511,7 @@
                                 <span class="roster-role">founder & director</span>
                             </div>
                             <a href="https://www.youtube.com/@T-Custard-26" target="_blank" class="youtube-icon-wrapper" title="T-Custard-26 Channel">
-                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 .502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                             </a>
                         </div>
                         <p class="roster-bio">The foundational design and direction force of TYSON Media Group. Manages primary channel operations alongside his creative sandbox channel, T-Custard-26.</p>
@@ -534,7 +525,7 @@
                                 <span class="roster-role">co-director</span>
                             </div>
                             <a href="https://www.youtube.com/@THE-BlurrySyrup" target="_blank" class="youtube-icon-wrapper" title="THE-BlurrySyrup Channel">
-                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 .502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                             </a>
                         </div>
                         <p class="roster-bio">Oversees tactical operations and operational formatting. Delivers the essential structural stabilization and mature guidance required to organize the network's long-term timeline.</p>
@@ -559,7 +550,7 @@
                                 <span class="roster-role">vr content lead</span>
                             </div>
                             <a href="https://www.youtube.com/@bubbavrgt1" target="_blank" class="youtube-icon-wrapper" title="BubbaVRGT1 Channel">
-                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 .502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                             </a>
                         </div>
                         <p class="roster-bio">Commands spatial capture processes across platforms. Constructs high-density, immersive POV virtual reality arrays designed for spatial simulation tracks.</p>
@@ -573,7 +564,7 @@
                                 <span class="roster-role">aviation content lead</span>
                             </div>
                             <a href="https://www.youtube.com/@AwesomeZ05/featured" target="_blank" class="youtube-icon-wrapper" title="AwesomeZ05 Channel">
-                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                <svg class="yt-svg-node" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 .502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                             </a>
                         </div>
                         <p class="roster-bio">Directs incoming aerodynamic research and production structures. Sets system specifications for the deployment of the upcoming TYSON Aviation program channel matrix.</p>
@@ -610,21 +601,27 @@
                 "id": "tmg-subaru-manuals-scoop",
                 "contentType": "article",
                 "title": "Three Pedals, One Mission: Subaru Confirms Three New Manual Models for Japan",
-                "ytId": "LMv3NhnDtoM", 
                 "tag": "flagship",
                 "channelName": "editorial division",
                 "issue": "press release • june, 2026",
                 "timestamp": 1780272000,
                 "excerpt": "Subaru's newly formed Sports Vehicle Planning Office drops a massive bombshell: three brand-new manual transmission platforms are slated to launch by 2027.",
                 "featured": true,
-                "bodyContent": `
-                    <p>In an unexpected and exciting update directly out of Japan, Subaru's newly minted Sports Vehicle Planning Office has officially greenlit three new manual transmission models earmarked for production.</p>
-                    <h2>Preserving the Mechanical Core</h2>
-                    <p>Amidst an industry rapidly abandoning tactile components for electronic control interfaces, this decision targets traditionalists. The editorial wing can confirm that engineers are hard at work engineering mechanical shift link setups designed to preserve the physical sensation of gear engagement.</p>
-                    <h2>Three Targeted Platforms</h2>
-                    <p>While strict configuration technical metrics remain confidential, initial documentation notes that these variants will spread across sports cars and functional wagons to satisfy distinct use cases. Expect custom engineering setups tailored explicitly around weight displacement arrays and traditional responsive performance curves.</p>
-                    <p>Full deployment details and mechanical chassis designations are expected to arrive in late winter.</p>
-                `
+                "localPath": "reviews/subaru-manuals.html",
+                "thumbnail": "imagestuff/articlesTHMB/subarumodels1.jpg"
+            },
+            {
+                "id": "tmg-porsche-911-review",
+                "contentType": "article",
+                "title": "Pure Performance Exploration: The Classic Porsche 911 Paradigm",
+                "tag": "flagship",
+                "channelName": "automotive desk",
+                "issue": "review • may, 2026",
+                "timestamp": 1777939200,
+                "excerpt": "A masterclass deep-dive analysis on the weight displacement balance, mechanical responsive curve layout, and heritage design behind the Porsche 911.",
+                "featured": false,
+                "localPath": "reviews/porsche-911.html",
+                "thumbnail": "imagestuff/logostuff/tysonwallpaper2.jpg"
             },
             {
                 "id": "tmg-forza-announcement",
@@ -691,8 +688,11 @@
             initLightboxEvents();
         }
 
-        function getYoutubeThumbnail(ytId) {
-            return `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
+        function getCardThumbnail(item) {
+            if (item.contentType === 'article' && item.thumbnail) {
+                return item.thumbnail;
+            }
+            return `https://img.youtube.com/vi/${item.ytId}/maxresdefault.jpg`;
         }
 
         function initLightboxEvents() {
@@ -702,33 +702,28 @@
             document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightbox.classList.contains('active')) closeLightboxSystem(); });
         }
 
-        function launchLightbox(item) {
+        function handleItemInteraction(item) {
+            if (item.contentType === 'article' && item.localPath) {
+                // Instantly navigate to the isolated html review path within the /reviews folder
+                window.location.href = item.localPath;
+            } else {
+                // Execute overlay tracking for standard streaming videos
+                launchVideoLightbox(item);
+            }
+        }
+
+        function launchVideoLightbox(item) {
             const videoFrame = document.getElementById('lightboxVideoFrame');
-            const articleView = document.getElementById('lightboxArticleView');
             const iframe = document.getElementById('lightboxIframe');
-            const articleBody = document.getElementById('lightboxArticleBody');
             
             document.getElementById('lightboxTitle').innerText = item.title.toLowerCase();
             document.getElementById('lightboxDesc').innerText = `${item.channelName} • ${item.issue}`;
 
-            if (item.contentType === 'article') {
-                videoFrame.style.display = 'none';
-                iframe.src = '';
-                articleBody.innerHTML = item.bodyContent || item.excerpt;
-                articleView.style.display = 'block';
-            } else {
-                articleView.style.display = 'none';
-                articleBody.innerHTML = '';
-                iframe.src = `https://www.youtube.com/embed/${item.ytId}?autoplay=1&modestbranding=1&rel=0`;
-                videoFrame.style.display = 'block';
-            }
+            iframe.src = `https://www.youtube.com/embed/${item.ytId}?autoplay=1&modestbranding=1&rel=0`;
+            videoFrame.style.display = 'block';
 
             document.getElementById('videoLightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
-
-        function launchIndependentLink(item) {
-            launchLightbox(item);
         }
 
         function closeLightboxSystem() {
@@ -744,7 +739,7 @@
 
             featuredData.forEach((item, idx) => {
                 const img = document.createElement('img');
-                img.src = getYoutubeThumbnail(item.ytId);
+                img.src = getCardThumbnail(item);
                 img.alt = item.title;
                 img.className = `carousel-img-item ${idx === 0 ? 'active' : ''}`;
                 track.appendChild(img);
@@ -761,7 +756,7 @@
                 updateCarouselDisplay();
             });
             document.getElementById('carouselLink').addEventListener('click', () => {
-                launchLightbox(featuredData[currentCarouselIndex]);
+                handleItemInteraction(featuredData[currentCarouselIndex]);
             });
         }
 
@@ -882,14 +877,14 @@
                 const card = document.createElement('div');
                 card.className = `item-card ${indexItem.contentType === 'video' ? 'video-format' : 'article-format'}`;
                 card.style.animationDelay = `${index * 0.03}s`;
-                card.onclick = () => launchIndependentLink(indexItem);
+                card.onclick = () => handleItemInteraction(indexItem);
                 
                 const formatIconSvg = indexItem.contentType === 'video' 
                     ? `<svg class="meta-format-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`
                     : `<svg class="meta-format-icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>`;
 
                 card.innerHTML = `
-                    <div class="img-wrapper"><img src="${getYoutubeThumbnail(indexItem.ytId)}" alt="${indexItem.title}"></div>
+                    <div class="img-wrapper"><img src="${getCardThumbnail(indexItem)}" alt="${indexItem.title}"></div>
                     <div class="card-meta">
                         <span>${indexItem.issue}</span>
                         <span class="card-meta-chan">${formatIconSvg}${indexItem.channelName}</span>
