@@ -666,3 +666,241 @@
         let activeCategoryFilter = 'all';
         let currentPageIndex = 1;
         let displayLimitPerPage = 6;
+        let activeSortSequence = 'newest';
+
+        function initGlobalEcosystem() {
+            featuredData = broadcastMasterRegistry.filter(item => item.featured);
+            initCarousel();
+            initControlDashboardListeners();
+            executeRegistryRender();
+            initLightboxEvents();
+        }
+
+        function getYoutubeThumbnail(ytId) {
+            return `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
+        }
+
+        function initLightboxEvents() {
+            const lightbox = document.getElementById('videoLightbox');
+            document.getElementById('closeLightbox').addEventListener('click', closeLightboxSystem);
+            lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightboxSystem(); });
+            document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightbox.classList.contains('active')) closeLightboxSystem(); });
+        }
+
+        function handleItemActivation(item) {
+            if (item.redirectUrl) {
+                window.location.href = item.redirectUrl;
+            } else {
+                launchLightbox(item);
+            }
+        }
+
+        function launchLightbox(item) {
+            const videoFrame = document.getElementById('lightboxVideoFrame');
+            const articleView = document.getElementById('lightboxArticleView');
+            const iframe = document.getElementById('lightboxIframe');
+            const articleBody = document.getElementById('lightboxArticleBody');
+            
+            document.getElementById('lightboxTitle').innerText = item.title;
+            document.getElementById('lightboxDesc').innerText = `${item.channelName} • ${item.issue}`;
+
+            if (item.contentType === 'article') {
+                videoFrame.style.display = 'none';
+                iframe.src = '';
+                articleBody.innerHTML = item.bodyContent || item.excerpt;
+                articleView.style.display = 'block';
+            } else {
+                articleView.style.display = 'none';
+                articleBody.innerHTML = '';
+                iframe.src = `https://www.youtube.com/embed/${item.ytId}?autoplay=1&modestbranding=1&rel=0`;
+                videoFrame.style.display = 'block';
+            }
+
+            document.getElementById('videoLightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightboxSystem() {
+            document.getElementById('videoLightbox').classList.remove('active');
+            document.getElementById('lightboxIframe').src = ''; 
+            document.body.style.overflow = '';
+        }
+
+        function initCarousel() {
+            if(!featuredData.length) return;
+            const track = document.getElementById('imageTrack');
+            track.innerHTML = '';
+
+            featuredData.forEach((item, idx) => {
+                const img = document.createElement('img');
+                img.src = getYoutubeThumbnail(item.ytId);
+                img.alt = item.title;
+                img.className = `carousel-img-item ${idx === 0 ? 'active' : ''}`;
+                track.appendChild(img);
+            });
+
+            updateCarouselDisplay();
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                currentCarouselIndex = (currentCarouselIndex + 1) % featuredData.length;
+                updateCarouselDisplay();
+            });
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                currentCarouselIndex = (currentCarouselIndex - 1 + featuredData.length) % featuredData.length;
+                updateCarouselDisplay();
+            });
+            document.getElementById('carouselLink').addEventListener('click', () => {
+                handleItemActivation(featuredData[currentCarouselIndex]);
+            });
+        }
+
+        function updateCarouselDisplay() {
+            const item = featuredData[currentCarouselIndex];
+            if(!item) return;
+            document.getElementById('carouselMeta').innerText = `${item.channelName} • ${item.issue}`;
+            document.getElementById('carouselTitle').innerText = item.title;
+            document.getElementById('carouselExcerpt').innerText = item.excerpt;
+            document.getElementById('carouselCounter').innerText = `${String(currentCarouselIndex + 1).padStart(2, '0')} / ${String(featuredData.length).padStart(2, '0')}`;
+            document.querySelectorAll('.carousel-img-item').forEach((img, idx) => {
+                img.classList.toggle('active', idx === currentCarouselIndex);
+            });
+        }
+
+        function initControlDashboardListeners() {
+            const searchInput = document.getElementById('journalSearch');
+            const clearBtn = document.getElementById('clearSearchBtn');
+
+            searchInput.addEventListener('input', () => {
+                clearBtn.classList.toggle('visible', searchInput.value.length > 0);
+                currentPageIndex = 1; 
+                executeRegistryRender();
+            });
+
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearBtn.classList.remove('visible');
+                currentPageIndex = 1;
+                executeRegistryRender();
+            });
+
+            document.querySelectorAll('.matrix-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.matrix-tab').forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    activeCategoryFilter = e.target.getAttribute('data-category');
+                    currentPageIndex = 1;
+                    executeRegistryRender();
+                });
+            });
+
+            document.getElementById('sortSelector').addEventListener('change', (e) => {
+                activeSortSequence = e.target.value;
+                executeRegistryRender();
+            });
+
+            document.getElementById('limitSelector').addEventListener('change', (e) => {
+                displayLimitPerPage = parseInt(e.target.value);
+                currentPageIndex = 1;
+                executeRegistryRender();
+            });
+
+            document.getElementById('prevPageBtn').addEventListener('click', () => {
+                if (currentPageIndex > 1) {
+                    currentPageIndex--;
+                    executeRegistryRender();
+                    document.getElementById('journal').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            document.getElementById('nextPageBtn').addEventListener('click', () => {
+                currentPageIndex++;
+                executeRegistryRender();
+                document.getElementById('journal').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        function executeRegistryRender() {
+            const container = document.getElementById('gridContainer');
+            const noResults = document.getElementById('noResults');
+            const countNode = document.getElementById('resultsCount');
+            const searchQuery = document.getElementById('journalSearch').value.toLowerCase().trim();
+            
+            let processedDataset = broadcastMasterRegistry.filter(item => {
+                const matchesCategory = (activeCategoryFilter === 'all') || (item.tag === activeCategoryFilter);
+                const matchesSearch = item.title.toLowerCase().includes(searchQuery) || 
+                                      item.excerpt.toLowerCase().includes(searchQuery) || 
+                                      item.channelName.toLowerCase().includes(searchQuery) ||
+                                      item.issue.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (activeSortSequence === 'newest') {
+                processedDataset.sort((a, b) => b.timestamp - a.timestamp);
+            } else if (activeSortSequence === 'oldest') {
+                processedDataset.sort((a, b) => a.timestamp - b.timestamp);
+            } else if (activeSortSequence === 'alpha') {
+                processedDataset.sort((a, b) => a.title.localeCompare(b.title));
+            }
+
+            const totalMatchingUnits = processedDataset.length;
+            const maxCalculatedPages = Math.ceil(totalMatchingUnits / displayLimitPerPage) || 1;
+            
+            if (currentPageIndex > maxCalculatedPages) currentPageIndex = maxCalculatedPages;
+
+            const sliceStartIndex = (currentPageIndex - 1) * displayLimitPerPage;
+            const sliceEndIndex = sliceStartIndex + displayLimitPerPage;
+            const paginatedDatasetSlice = processedDataset.slice(sliceStartIndex, sliceEndIndex);
+
+            container.innerHTML = '';
+            countNode.innerText = `${totalMatchingUnits} items cataloged • showing page ${currentPageIndex} of ${maxCalculatedPages}`;
+
+            if (!totalMatchingUnits) {
+                noResults.style.display = 'block';
+                document.getElementById('paginationBlock').style.display = 'none';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            document.getElementById('paginationBlock').style.display = totalMatchingUnits > displayLimitPerPage ? 'flex' : 'none';
+
+            document.getElementById('paginationTrackerNode').innerText = `Page ${currentPageIndex} of ${maxCalculatedPages}`;
+            document.getElementById('prevPageBtn').disabled = (currentPageIndex === 1);
+            document.getElementById('nextPageBtn').disabled = (currentPageIndex === maxCalculatedPages);
+
+            paginatedDatasetSlice.forEach((item, index) => {
+                const card = document.createElement('div');
+                
+                let formatClass = 'article-format';
+                if (item.redirectUrl) {
+                    formatClass = 'redirect-format';
+                } else if (item.contentType === 'video') {
+                    formatClass = 'video-format';
+                }
+                
+                card.className = `item-card ${formatClass}`;
+                card.style.animationDelay = `${index * 0.03}s`;
+                card.onclick = () => handleItemActivation(item);
+                
+                // UX: Construct conditional svg nodes depending on resource taxonomy matching vectors
+                let formatIconSvg = `<svg class="meta-format-icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>`;
+                if (item.contentType === 'video') {
+                    formatIconSvg = `<svg class="meta-format-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+                } else if (item.redirectUrl) {
+                    formatIconSvg = `<svg class="meta-format-icon" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>`;
+                }
+
+                card.innerHTML = `
+                    <div class="img-wrapper"><img src="${getYoutubeThumbnail(item.ytId)}" alt="${item.title}"></div>
+                    <div class="card-meta">
+                        <span>${item.issue}</span>
+                        <span class="card-meta-chan">${formatIconSvg}${item.channelName}</span>
+                    </div>
+                    <h4 class="card-title">${item.title}</h4>
+                    <p class="card-excerpt">${item.excerpt}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
