@@ -30,72 +30,6 @@
             font-family: var(--font-accent); font-weight: 200; line-height: 1.65; overflow-x: hidden;
             letter-spacing: -0.01em; -webkit-font-smoothing: antialiased;
         }
-        
-        /* Beta Gate Overlay Styles */
-        #betaGateOverlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--bg-black); z-index: 99999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 2rem; opacity: 1; transition: opacity 0.6s ease;
-        }
-        .gate-container {
-            width: 100%; max-width: 650px; text-align: center;
-            display: flex; flex-direction: column; align-items: center; gap: 2rem;
-        }
-        .gate-brand-image {
-            width: 100%; max-width: 580px; height: auto; display: block;
-            mix-blend-mode: lighten; filter: brightness(0.95); margin-bottom: 0rem;
-        }
-        
-        /* Authoritative Security Notice Block */
-        .gate-security-notice {
-            font-family: var(--font-accent); font-size: 0.68rem; font-weight: 500;
-            color: #ff453a; letter-spacing: 0.18em; text-transform: uppercase;
-            line-height: 1.6; max-width: 520px; margin-bottom: 1rem;
-            padding: 1rem; border-left: 1px solid rgba(255, 69, 58, 0.3);
-            border-right: 1px solid rgba(255, 69, 58, 0.3); background: rgba(255, 69, 58, 0.02);
-        }
-
-        .gate-form {
-            width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 1.2rem;
-        }
-        .gate-input-group {
-            position: relative; width: 100%;
-        }
-        
-        /* Distinct Input Field Boxes with Permanent Highlight Status */
-        .gate-input {
-            width: 100%; background: rgba(12, 12, 14, 0.8); 
-            border: 1px solid var(--border-heavy);
-            color: var(--text-light); font-family: var(--font-accent); font-size: 0.85rem; font-weight: 300;
-            padding: 1rem 1.4rem; border-radius: 4px; letter-spacing: 0.06em; 
-            transition: var(--transition-main);
-            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
-        }
-        .gate-input:focus { 
-            outline: none; 
-            border-color: #ffffff; 
-            background: #000000;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
-        }
-        .gate-submit-btn {
-            width: 100%; background: none; border: 1px solid var(--border-heavy); color: var(--text-light);
-            font-family: var(--font-accent); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-            padding: 1rem; border-radius: 4px; cursor: pointer; font-weight: 600; margin-top: 0.5rem;
-            transition: var(--transition-main);
-        }
-        .gate-submit-btn:hover { background: #fff; color: #000; border-color: #fff; }
-        .gate-error-msg {
-            color: #ff453a; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;
-            min-height: 18px; opacity: 0; transition: opacity 0.3s ease; text-transform: uppercase;
-        }
-        .gate-error-msg.visible { opacity: 1; }
-        .gate-footer-tag {
-            font-family: var(--font-editorial); font-style: italic; color: rgba(255,255,255,0.2); font-size: 0.85rem; margin-top: 0.5rem;
-        }
-
-        /* Content Visibility Control */
-        #tysonAppContent { display: none; }
 
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.022; pointer-events: none; z-index: 9999;
@@ -103,9 +37,9 @@
         }
 
         header {
-            position: fixed; top: 0; left: 0; width: 100%; padding: 1.8rem 4%; display: flex; flex-direction: column; gap: 1.5rem; z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0)); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--border-color);
+            position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 4%; display: flex; flex-direction: column; gap: 1.2rem; z-index: 100;
+            background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border-color); transition: var(--transition-main);
         }
         
         .header-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 2rem; }
@@ -119,26 +53,29 @@
 
         .nav-right-cluster { display: flex; align-items: center; gap: 3rem; }
         nav { display: flex; gap: 2.5rem; }
-        nav a { color: var(--text-light); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: none; opacity: 0.5; transition: var(--transition-main); font-weight: 400; padding: 0.5rem 0; }
+        nav a { color: var(--text-light); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.5; transition: var(--transition-main); font-weight: 500; padding: 0.5rem 0; position: relative; }
         nav a:hover { opacity: 1; }
+        nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: #fff; transition: var(--transition-main); }
+        nav a:hover::after { width: 100%; }
 
-        .search-container { position: relative; display: flex; align-items: center; background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); padding: 0 1.2rem; border-radius: 4px; width: 320px; }
+        .search-container { position: relative; display: flex; align-items: center; background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); padding: 0 1.2rem; border-radius: 4px; width: 320px; transition: var(--transition-main); }
+        .search-container:focus-within { border-color: var(--border-heavy); box-shadow: 0 0 10px rgba(255,255,255,0.03); }
         .search-input {
             background: transparent; border: none;
             color: var(--text-light); font-family: var(--font-accent); font-size: 0.78rem; font-weight: 300;
             padding: 0.7rem 2rem 0.7rem 0; width: 100%; letter-spacing: 0.05em; transition: var(--transition-main);
         }
         .search-input:focus { outline: none; }
-        .search-input::placeholder { color: rgba(255,255,255,0.3); text-transform: none; font-size: 0.78rem; letter-spacing: 0.05em; }
+        .search-input::placeholder { color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 0.05em; }
         .search-clear-btn { position: absolute; right: 0.8rem; background: none; border: none; color: var(--text-muted); font-size: 0.9rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s; padding: 0.2rem; }
         .search-clear-btn.visible { opacity: 1; pointer-events: all; }
 
         section { padding: 12rem 4% 6rem 4%; max-width: 1750px; margin: 0 auto; position: relative; }
         .section-tag-line { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 4rem; }
-        .section-tag { font-size: 0.85rem; text-transform: none; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 500; }
+        .section-tag { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); font-weight: 500; }
         .section-line { height: 1px; flex-grow: 1; background: var(--border-color); }
 
-        .hero-deck { height: 95vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 4%; position: relative; background: var(--bg-deep); }
+        .hero-deck { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 4%; position: relative; background: var(--bg-deep); }
         .hero-logo-container {
             max-width: 900px; width: 85%; margin-bottom: 3.5rem; opacity: 0; transform: translateY(20px);
             animation: revealBrand 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
@@ -151,7 +88,7 @@
             opacity: 0; transform: translateY(15px);
             animation: revealBrand 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
         }
-        .scroll-indicator { position: absolute; bottom: 3.5rem; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: none; color: var(--text-muted); animation: microPulse 2s infinite ease-in-out; }
+        .scroll-indicator { position: absolute; bottom: 3.5rem; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); animation: microPulse 2s infinite ease-in-out; cursor: pointer; }
 
         .carousel-deck { position: relative; width: 100%; aspect-ratio: 21/9; border: 1px solid var(--border-color); overflow: hidden; background: #020203; }
         .carousel-visual-pane { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
@@ -168,8 +105,8 @@
         .carousel-excerpt { color: rgba(255,255,255,0.45); font-size: 0.9rem; font-weight: 300; max-width: 580px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6; }
         
         .carousel-nav-interface { display: flex; flex-direction: column; align-items: flex-end; gap: 1.5rem; }
-        .carousel-link { font-size: 0.75rem; text-transform: none; letter-spacing: 0.1em; color: var(--text-light); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 0.3rem; transition: var(--transition-main); font-weight: 500; cursor: pointer; }
-        .carousel-link:hover { border-color: var(--text-light); }
+        .carousel-link { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-light); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 0.3rem; transition: var(--transition-main); font-weight: 500; cursor: pointer; }
+        .carousel-link:hover { border-color: var(--text-light); letter-spacing: 0.18em; }
         
         .carousel-controls { display: flex; align-items: center; gap: 2rem; }
         .ctrl-btn { background: none; border: none; color: rgba(255,255,255,0.3); font-size: 1rem; cursor: pointer; padding: 0.5rem; transition: color 0.3s; }
@@ -184,13 +121,13 @@
         
         .catalog-matrix-controls { display: flex; gap: 1.8rem; overflow-x: auto; white-space: nowrap; -ms-overflow-style: none; scrollbar-width: none; }
         .catalog-matrix-controls::-webkit-scrollbar { display: none; }
-        .matrix-tab { background: none; border: none; color: var(--text-muted); font-family: var(--font-accent); font-size: 0.75rem; text-transform: none; letter-spacing: 0.08em; cursor: pointer; padding: 0.4rem 0; position: relative; transition: var(--transition-main); font-weight: 500; min-height: 44px; }
+        .matrix-tab { background: none; border: none; color: var(--text-muted); font-family: var(--font-accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; cursor: pointer; padding: 0.4rem 0; position: relative; transition: var(--transition-main); font-weight: 500; min-height: 44px; }
         .matrix-tab:hover { color: var(--text-light); }
         .matrix-tab.active { color: var(--text-light); }
         .matrix-tab.active::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: #fff; }
 
         .dashboard-filtering-options-node { display: flex; align-items: center; gap: 1.5rem; }
-        .selector-label-group { display: flex; align-items: center; gap: 0.6rem; font-size: 0.72rem; text-transform: none; letter-spacing: 0.05em; color: var(--text-muted); }
+        .selector-label-group { display: flex; align-items: center; gap: 0.6rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
         
         .interactive-dropdown-node {
             background: #000; color: var(--text-light); border: 1px solid var(--border-color);
@@ -201,33 +138,34 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z' fill='%236e6e73'/%3E%3C/svg%3E");
             background-repeat: no-repeat; background-position: right 0.6rem center; background-size: 14px;
         }
-        .interactive-dropdown-node:hover { border-color: rgba(255,255,255,0.15); color: #fff; }
+        .interactive-dropdown-node:hover { border-color: rgba(255,255,255,0.25); color: #fff; }
 
         .catalog-header-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; padding: 0 0.5rem; }
-        .results-counter-node { font-size: 0.75rem; text-transform: none; letter-spacing: 0.05em; color: var(--text-muted); font-weight: 500; }
+        .results-counter-node { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 500; }
 
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 6rem 3.5rem; min-height: 400px; }
         .item-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; opacity: 0; transform: translateY(15px); animation: itemReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; cursor: pointer; }
         .img-wrapper { width: 100%; aspect-ratio: 16/10; background: #080809; margin-bottom: 1.8rem; overflow: hidden; border: 1px solid var(--border-color); position: relative; }
         
-        .img-wrapper::after { content: "Read Article"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.75rem; letter-spacing: 0.15em; font-weight: 500; color: #fff; opacity: 0; transition: var(--transition-main); z-index: 2; border: 1px solid rgba(255,255,255,0.2); padding: 0.8rem 1.4rem; background: rgba(0,0,0,0.65); backdrop-filter: blur(5px); text-transform: none; }
+        .img-wrapper::after { content: "Read Article"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.75rem; letter-spacing: 0.15em; font-weight: 500; color: #fff; opacity: 0; transition: var(--transition-main); z-index: 2; border: 1px solid rgba(255,255,255,0.2); padding: 0.8rem 1.4rem; background: rgba(0,0,0,0.65); backdrop-filter: blur(5px); text-transform: uppercase; }
         .item-card.video-format .img-wrapper::after { content: "Watch Video"; }
         .item-card:hover .img-wrapper::after { opacity: 1; letter-spacing: 0.18em; }
 
         .item-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: grayscale(10%); transition: var(--transition-main); }
         .item-card:hover img { transform: scale(1.015); opacity: 0.85; filter: grayscale(0%); }
         
-        .card-meta { font-size: 0.72rem; text-transform: none; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 1rem; font-weight: 500; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 0.5rem; }
-        .card-meta-chan { color: rgba(255,255,255,0.3); }
+        .card-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 1rem; font-weight: 500; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 0.5rem; align-items: center; }
+        .card-meta-chan { color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 0.4rem; }
+        .meta-format-icon { width: 12px; height: 12px; fill: currentColor; opacity: 0.5; }
         .card-title { font-family: var(--font-editorial); font-size: 2rem; font-weight: 400; line-height: 1.25; margin-bottom: 0.8rem; letter-spacing: -0.01em; color: rgba(255,255,255,0.95); }
         .card-excerpt { color: var(--text-muted); font-size: 0.92rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.65; }
         .no-results { display: none; text-align: center; padding: 8rem 0; font-family: var(--font-editorial); font-size: 1.6rem; color: var(--text-muted); font-style: italic; border: 1px dashed var(--border-color); }
 
         .pagination-container-deck { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 6rem; padding-top: 3rem; border-top: 1px solid var(--border-color); }
-        .pagination-btn { background: none; border: 1px solid var(--border-color); color: var(--text-muted); font-family: var(--font-accent); font-size: 0.72rem; text-transform: none; letter-spacing: 0.1em; padding: 0.7rem 1.4rem; cursor: pointer; transition: var(--transition-main); min-height: 44px; display: flex; align-items: center; }
-        .pagination-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.2); color: var(--text-light); }
+        .pagination-btn { background: none; border: 1px solid var(--border-color); color: var(--text-muted); font-family: var(--font-accent); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.7rem 1.4rem; cursor: pointer; transition: var(--transition-main); min-height: 44px; display: flex; align-items: center; border-radius: 4px; }
+        .pagination-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.4); color: var(--text-light); }
         .pagination-btn:disabled { opacity: 0.15; cursor: not-allowed; }
-        .pagination-tracker-label { font-size: 0.72rem; letter-spacing: 0.05em; color: var(--text-muted); text-transform: none; }
+        .pagination-tracker-label { font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; }
 
         .matrix-deck { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
         .matrix-cell { border: 1px solid var(--border-color); background: rgba(255,255,255,0.002); padding: 3.5rem 2.5rem; text-decoration: none; color: inherit; transition: var(--transition-main); display: flex; flex-direction: column; justify-content: space-between; min-height: 380px; position: relative; }
@@ -242,7 +180,7 @@
 
         .matrix-cell p { font-size: 0.88rem; color: var(--text-muted); font-weight: 300; line-height: 1.65; margin-bottom: auto; }
         
-        .matrix-status { font-size: 0.68rem; text-transform: none; letter-spacing: 0.08em; color: var(--text-light); margin-top: 2.5rem; display: flex; align-items: center; gap: 0.6rem; opacity: 0.5; font-weight: 500; }
+        .matrix-status { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-light); margin-top: 2.5rem; display: flex; align-items: center; gap: 0.6rem; opacity: 0.5; font-weight: 500; }
         .matrix-status span { width: 5px; height: 5px; background: #fff; border-radius: 50%; display: inline-block; }
         .matrix-status.pulse span { background: #30d158; animation: microPulse 2s infinite ease-in-out; }
 
@@ -254,7 +192,7 @@
         .roster-identity-stack { display: flex; flex-direction: column; }
         .roster-name { font-family: var(--font-editorial); font-size: 1.75rem; font-weight: 400; color: var(--text-light); letter-spacing: -0.01em; line-height: 1.1; }
         .roster-pronoun { font-size: 0.68rem; font-weight: 400; text-transform: none; letter-spacing: 0.05em; color: var(--text-muted); margin-top: 0.3rem; display: block; }
-        .roster-role { font-size: 0.72rem; text-transform: none; letter-spacing: 0.05em; color: var(--text-muted); font-weight: 600; margin-top: 0.4rem; }
+        .roster-role { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; margin-top: 0.4rem; }
         
         .youtube-icon-wrapper { color: var(--text-muted); opacity: 0.3; transition: var(--transition-main); display: inline-flex; align-items: center; padding: 0.5rem; margin-top: -0.5rem; margin-right: -0.5rem; }
         .youtube-icon-wrapper:hover { color: #ff0000; opacity: 1; transform: scale(1.05); }
@@ -280,18 +218,48 @@
         .lightbox-title { font-family: var(--font-editorial); font-size: 2.2rem; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 0.5rem; line-height: 1.2; }
         .lightbox-desc { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; line-height: 1.5; }
         
-        .lightbox-close-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: var(--text-light); font-family: var(--font-accent); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: none; padding: 0.8rem 1.6rem; cursor: pointer; transition: var(--transition-main); min-height: 44px; }
+        .lightbox-close-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: var(--text-light); font-family: var(--font-accent); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.8rem 1.6rem; cursor: pointer; transition: var(--transition-main); min-height: 44px; border-radius: 4px; }
         .lightbox-close-btn:hover { background: #fff; color: #000; border-color: #fff; }
 
-        footer { padding: 7rem 4% 4rem 4%; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: none; font-weight: 400; }
-        .footer-closing { font-family: var(--font-editorial); font-style: italic; text-transform: none; letter-spacing: 0; color: rgba(255,255,255,0.35); font-size: 0.95rem; }
+        /* Modern Redesigned Footer Framework */
+        footer { 
+            position: relative;
+            padding: 0 4%; 
+            height: 180px;
+            border-top: 1px solid var(--border-color); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-end;
+            background: var(--bg-deep);
+            overflow: hidden;
+        }
+        .footer-left-logo {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 110%; /* Intentionally slightly larger to scale and cut off beautifully */
+            width: auto;
+            object-fit: contain;
+            object-position: left bottom;
+            pointer-events: none;
+            opacity: 0.85;
+            mix-blend-mode: lighten;
+        }
+        .footer-right-brand {
+            height: 55px;
+            max-width: 45%;
+            margin-bottom: 2rem;
+            object-fit: contain;
+            object-position: right bottom;
+            mix-blend-mode: lighten;
+        }
 
         @keyframes revealBrand { to { opacity: 1; transform: translateY(0); } }
         @keyframes itemReveal { to { opacity: 1; transform: translateY(0); } }
         @keyframes microPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
         
         @media (max-width: 1200px) {
-            header { padding: 1.2rem 4%; gap: 1rem; position: absolute; }
+            header { padding: 1.2rem 4%; gap: 1rem; position: absolute; background: var(--bg-black); }
             .header-top-row { flex-direction: column; gap: 1.2rem; align-items: flex-start; }
             
             .subdomain-routing-deck { 
@@ -310,7 +278,7 @@
             
             main { padding-top: 9rem !important; }
             section { padding: 6rem 4% 4rem 4%; }
-            .hero-deck { height: auto; min-height: 65vh; padding: 10rem 4% 4rem 4%; }
+            .hero-deck { height: auto; min-height: 75vh; padding: 12rem 4% 4rem 4%; }
             
             .carousel-deck { aspect-ratio: 16/10; }
             .carousel-content-overlay { padding: 2rem; flex-direction: column; align-items: flex-start; gap: 2rem; }
@@ -330,34 +298,14 @@
             .lightbox-meta-footer { flex-direction: column; gap: 1.5rem; }
             .lightbox-title-stack { max-width: 100%; }
             .lightbox-close-btn { width: 100%; text-align: center; }
-            footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+            
+            footer { height: 140px; padding: 0 4%; }
+            .footer-left-logo { height: 100%; }
+            .footer-right-brand { height: 40px; margin-bottom: 1.5rem; }
         }
     </style>
 </head>
 <body>
-
-    <!-- Immersive Beta Authorization Interface -->
-    <div id="betaGateOverlay">
-        <div class="gate-container">
-            <img src="imagestuff/Untitled(2).png" alt="TYSON Core Asset" class="gate-brand-image">
-            
-            <div class="gate-security-notice">
-                WARNING: UN-AUTHORIZED USE PROHIBITED. This piece of software is restricted to authorized beta nodes. Access is strictly forbidden without verified runtime authentication issued directly by TYSON Media Group.
-            </div>
-
-            <form class="gate-form" id="betaGateForm" onsubmit="handleAuthSequence(event)">
-                <div class="gate-input-group">
-                    <input type="text" id="gateUser" class="gate-input" placeholder="ACCESS IDENTITY" required autocomplete="username">
-                </div>
-                <div class="gate-input-group">
-                    <input type="password" id="gatePass" class="gate-input" placeholder="PASSKEY VECTOR" required autocomplete="current-password">
-                </div>
-                <div id="gateError" class="gate-error-msg"></div>
-                <button type="submit" class="gate-submit-btn">Authorize Node</button>
-            </form>
-            <div class="gate-footer-tag">Stillness in motion.</div>
-        </div>
-    </div>
 
     <!-- Protected Application Cluster -->
     <div id="tysonAppContent">
@@ -397,8 +345,8 @@
                     <nav>
                         <a href="#broadcast">Featured</a>
                         <a href="#journal">Registry</a>
-                        <a href="#network">TYSON</a>
-                        <a href="#collective">The TYSON Team</a>
+                        <a href="#network">Networks</a>
+                        <a href="#collective">Team</a>
                     </nav>
                 </div>
             </div>
@@ -410,7 +358,7 @@
                     <img src="imagestuff/TYSONMediaGroupBanner.png" alt="TYSON Media Group">
                 </div>
                 <h1>Stillness in motion.</h1>
-                <div class="scroll-indicator">Explore Featured Work</div>
+                <div class="scroll-indicator" onclick="document.getElementById('broadcast').scrollIntoView({behavior: 'smooth'});">Explore Featured Work</div>
             </section>
 
             <section id="broadcast" class="broadcast-hub" style="padding-top: 4rem;">
@@ -423,7 +371,7 @@
                     <div class="carousel-visual-pane" id="imageTrack"></div>
                     <div class="carousel-content-overlay">
                         <div class="carousel-text-box">
-                            <div id="carouselMeta" style="font-size: 0.72rem; text-transform: none; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.8rem; font-weight:500;"></div>
+                            <div id="carouselMeta" style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.8rem; font-weight:500;"></div>
                             <h2 id="carouselTitle" class="carousel-title"></h2>
                             <p id="carouselExcerpt" class="carousel-excerpt"></p>
                         </div>
@@ -496,7 +444,7 @@
 
             <section id="network">
                 <div class="section-tag-line">
-                    <span class="section-tag">TYSON</span>
+                    <span class="section-tag">Network Architecture</span>
                     <div class="section-line"></div>
                 </div>
                 
@@ -613,76 +561,17 @@
             </section>
         </main>
 
+        <!-- Redesigned Minimal Footer Asset Placement -->
         <footer>
-            <p>&copy; 2026 TYSON Media Group.</p>
-            <p class="footer-closing">Stillness in motion.</p>
+            <img src="imagestuff/footerlogo.png" alt="" class="footer-left-logo">
+            <img src="imagestuff/Untitled(2).png" alt="TYSON Media Group" class="footer-right-brand">
         </footer>
     </div>
 
     <script>
-        // Direct Registry (Keys are entirely lowercase to facilitate reliable matches)
-        const AUTHORIZATION_REGISTRY = {
-            "tcustine@tysonadmin": "ty!19377460tmg1",
-            "afrench@tyson": "ash!19377460tmg1",
-            "zwiggins@tyson": "zane!19377460tmg1",
-            "bmessersmith@tyson": "brayden!19377460tmg1",
-            "trinebarger@tyson": "triston!19377460tmg1",
-            "jglick@tyson": "jacob!19377460tmgguest1"
-        };
-
-        // Aggressive filter handling invisible artifacts from bad data loops
-        function cleanString(str) {
-            if (!str) return '';
-            return str
-                .replace(/[^\x20-\x7E]/g, '') // Strips out all non-printable/control codes entirely
-                .replace(/\s+/g, '')          // Obliterates spaces, trailing layout breaks, tabs
-                .trim()
-                .toLowerCase();               // Forces standard uniform matching layout
-        }
-
-        function handleAuthSequence(event) {
-            event.preventDefault();
-            
-            // Capture raw input values and route directly into security cleaner module
-            const usernameInput = cleanString(document.getElementById('gateUser').value);
-            const passwordInput = cleanString(document.getElementById('gatePass').value);
-            const errorElement = document.getElementById('gateError');
-
-            errorElement.classList.remove('visible');
-
-            // Debug Tracer Hooks: Press F12 in-browser to trace execution values if failure triggers
-            console.log("Processed User Vector:", usernameInput);
-            console.log("Processed Password Vector:", passwordInput);
-            console.log("Expected Password Structure:", AUTHORIZATION_REGISTRY[usernameInput]);
-
-            // Authentication verification logic check
-            if (AUTHORIZATION_REGISTRY[usernameInput] && AUTHORIZATION_REGISTRY[usernameInput] === passwordInput) {
-                sessionStorage.setItem('tyson_beta_authorized', 'true');
-                revealMainApplicationDeck();
-                return;
-            }
-
-            // Mismatch structural error display routing
-            errorElement.innerText = "INVALID IDENTITY CREDENTIAL PATHWAY";
-            errorElement.classList.add('visible');
-            document.getElementById('gatePass').value = '';
-        }
-
-        function revealMainApplicationDeck() {
-            document.getElementById('betaGateOverlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('betaGateOverlay').style.display = 'none';
-                document.getElementById('tysonAppContent').style.display = 'block';
-                initGlobalEcosystem();
-            }, 600);
-        }
-
+        // Immediately kick-start system environment loops
         window.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('tyson_beta_authorized') === 'true') {
-                document.getElementById('betaGateOverlay').style.display = 'none';
-                document.getElementById('tysonAppContent').style.display = 'block';
-                initGlobalEcosystem();
-            }
+            initGlobalEcosystem();
         });
 
         // Application Content Rendering Engine Logic
@@ -874,9 +763,6 @@
                 clearBtn.classList.toggle('visible', searchInput.value.length > 0);
                 currentPageIndex = 1; 
                 executeRegistryRender();
-                if(searchInput.value.length === 1) {
-                    document.getElementById('journal').scrollIntoView({ behavior: 'smooth' });
-                }
             });
 
             clearBtn.addEventListener('click', () => {
@@ -976,11 +862,16 @@
                 card.style.animationDelay = `${index * 0.03}s`;
                 card.onclick = () => launchLightbox(item);
                 
+                // UX: Construct conditional svg nodes depending on resource taxonomy matching vectors
+                const formatIconSvg = item.contentType === 'video' 
+                    ? `<svg class="meta-format-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`
+                    : `<svg class="meta-format-icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>`;
+
                 card.innerHTML = `
                     <div class="img-wrapper"><img src="${getYoutubeThumbnail(item.ytId)}" alt="${item.title}"></div>
                     <div class="card-meta">
                         <span>${item.issue}</span>
-                        <span class="card-meta-chan">${item.channelName}</span>
+                        <span class="card-meta-chan">${formatIconSvg}${item.channelName}</span>
                     </div>
                     <h4 class="card-title">${item.title}</h4>
                     <p class="card-excerpt">${item.excerpt}</p>
